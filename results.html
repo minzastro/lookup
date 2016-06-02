@@ -1,0 +1,26 @@
+<html>
+    <head>
+      <!--<link rel="stylesheet" type="text/css" href="static/tablesort.css">-->
+      <script type="text/javascript" charset="utf8" src="static/jquery.js"></script>
+      <!--<script type="text/javascript">var jqMenu = $.noConflict();</script>
+      <script type="text/javascript" src="static/cdsmenu.min.js"></script>
+      <script type="text/javascript" src="static/jstorage.min.js"></script>
+      <script type="text/javascript" charset="utf8" src="static/jquery.js"></script>
+      <script type="text/javascript" charset="utf8" src="static/viz2.js"></script>-->
+      <script type="text/javascript" language="javascript" class="init">
+        jQuery(window).load(function(){
+            var catalogs = [%s];
+            for (var i = 0; i < catalogs.length; i++) {
+                jQuery.post('get_info', {catalog: catalogs[i]},
+                       function(response){
+                           document.getElementById("result").innerHTML += response;
+                       });
+            }
+        });
+      </script>
+    </head>
+    <body>
+    <div id="result"></div>
+    <div id="error"></div>
+    </body>
+</html>
