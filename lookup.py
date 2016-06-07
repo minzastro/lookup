@@ -17,6 +17,8 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 from lib.sql2file import sql_to_file
 from lib.sqlconnection import SQLConnection
+from glob import glob
+from mocfinder import MOCFinder as MOC
 
 VIZIER_CATALOGS = {
   '2MASS': 'II/246/out',
@@ -45,15 +47,18 @@ def load_vizier(catalog, ra, dec, radius=DEFAULT_RADIUS):
     text = req.text
     h = html.fromstring(text)
     r = h.xpath('//div[@id="CDScore"]/table[@class="sort"]')
-    if len(r) == 0:
-        return '<div>Nothing for %s</div>' % catalog
-    r = r[0]
-    for element in r.xpath('//a[@class="full"]'):
-        element.attrib['href'] = 'http://vizier.u-strasbg.fr/viz-bin/' + element.attrib['href']
     base = html.Element('div')
     header = html.Element('h2')
     header.text = catalog
     base.append(header)
+    if len(r) == 0:
+        div = html.Element('div')
+        div.text = 'Nothing for %s' % catalog
+        base.append(div)
+        return tostring(base)
+    r = r[0]
+    for element in r.xpath('//a[@class="full"]'):
+        element.attrib['href'] = 'http://vizier.u-strasbg.fr/viz-bin/' + element.attrib['href']
     base.append(r)
     return tostring(base)
 
@@ -98,13 +103,18 @@ def load_vsa(catalog, ra, dec, radius=DEFAULT_RADIUS):
     text = req.content
     h = html.fromstring(text)
     r = h.xpath('//table[count(tr)>1]')
-    if len(r) == 0:
-        return ''
-    r = r[0]
     base = html.Element('div')
     header = html.Element('h2')
     header.text = catalog
     base.append(header)
+    if len(r) == 0:
+        div = html.Element('div')
+        div.text = 'Nothing for %s' % catalog
+        base.append(div)
+        return tostring(base)
+    if len(r) == 0:
+        return ''
+    r = r[0]
     base.append(r)
     return tostring(base)
 
@@ -138,14 +148,17 @@ def load_local_sql(catalog, ra, dec, radius=DEFAULT_RADIUS):
                 connection=CONN, overwrite=True)
     h = html.parse('temp_%s.html' % catalog)
     r = h.xpath('//table[count(tr)>0]')
-    if len(r) == 0:
-        return ''
-    r = r[0]
-    r.attrib['border'] = '1'
     base = html.Element('div')
     header = html.Element('h2')
     header.text = catalog
     base.append(header)
+    if len(r) == 0:
+        div = html.Element('div')
+        div.text = 'Nothing for %s' % catalog
+        base.append(div)
+        return tostring(base)
+    r = r[0]
+    r.attrib['border'] = '1'
     base.append(r)
     return tostring(base)
 
@@ -178,7 +191,6 @@ def handle_error():
     cherrypy.response.status = 500
     cherrypy.response.body = [
         """<html><body><pre>Sorry, an error occured %s</pre><br>
-        <a href="mailto:arches.support@astro.unistra.fr" target="_top">Contact ARCHES support team (please refer to ICF in the mail subject)</a><br>
         </body></html>""" % _cperror.format_exc()
     ]
 
@@ -186,13 +198,27 @@ cherrypy.config.update({'error_page.404': error_page_404,
                         'request.error_response': handle_error})
 
 class LookupServer(object):
+    def __init__(self):
+        self.mocs = {name[5:-5]: MOC(name) for name in glob('mocs/*.fits')}
+
     @cherrypy.expose
     def index(self):
         return open('index.html', 'r')
 
     @cherrypy.expose
     def search(self, coordinates):
-        self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
+        try:
+            self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
+        except ValueError:
+            # TODO: move to html file.
+            return """<html><body>Coordinates You gave cannot be interpreted.<br>
+            Coordinates should be one of:
+            <ul>
+              <li>RA[+-\s]DE (in decimal degrees)</li>
+              <li>Or any text understood by <a href="http://docs.astropy.org/en/stable/coordinates/">astropy coordinates</a></li>
+            </ul>
+            </body></html>
+            """
         catalog_list = VIZIER_CATALOGS.keys() + VSA_CATALOGS.keys() + \
                        SQL_CATALOGS.keys()
         catalog_list = ["'%s'" % cat for cat in catalog_list]
@@ -201,9 +227,16 @@ class LookupServer(object):
         ahtml = ahtml % (', '.join(catalog_list))
         return ahtml
 
-
     @cherrypy.expose
     def get_info(self, catalog):
+        if catalog.lower() in self.mocs:
+            if not self.mocs[catalog.lower()].is_in(self.ra, self.dec):
+                base = html.Element('div')
+                header = html.Element('h2')
+                header.text = 'Not covered by %s' % catalog
+                base.append(header)
+                # TODO: add DIV with "no cover" and "no data" catalogs to html
+                return tostring(base)
         if catalog in VIZIER_CATALOGS:
             return load_vizier(catalog, self.ra, self.dec)
         elif catalog in VSA_CATALOGS:
