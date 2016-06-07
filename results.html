@@ -11,6 +11,7 @@
         jQuery(window).load(function(){
             var catalogs = [%s];
             for (var i = 0; i < catalogs.length; i++) {
+                //document.getElementById("result").innerHTML += catalogs[i];
                 jQuery.post('get_info', {catalog: catalogs[i]},
                        function(response){
                            document.getElementById("result").innerHTML += response;

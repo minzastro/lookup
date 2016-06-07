@@ -46,7 +46,7 @@ def load_vizier(catalog, ra, dec, radius=DEFAULT_RADIUS):
     h = html.fromstring(text)
     r = h.xpath('//div[@id="CDScore"]/table[@class="sort"]')
     if len(r) == 0:
-        return ''
+        return '<div>Nothing for %s</div>' % catalog
     r = r[0]
     for element in r.xpath('//a[@class="full"]'):
         element.attrib['href'] = 'http://vizier.u-strasbg.fr/viz-bin/' + element.attrib['href']
