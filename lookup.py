@@ -131,6 +131,9 @@ SQL_CATALOGS = {'RAVE': ("""rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K,
                 'GAIA_ESO': ("""cname,ges_fld,object,teff,e_teff,logg,e_logg,
                                 feh,e_feh,j_vista,h_vista,k_vista""",
                                 'ra', 'declination'),
+                'LAMOST_GAC': ("""spec_id,date,objid,objtype,teff,teff_err,
+                                  logg,logg_err,feh,feh_err,dist_mod,ebv_sfd,ebv_phot""",
+                                'ra', '"dec"'),
                 'SEGUE': ("""specobjid,spectypehammer,teffadop,teffadopunc,
                              loggadop,loggadopunc,fehadop,fehadopunc,snr""",
                              'ra', '"dec"')
@@ -210,7 +213,7 @@ class LookupServer(object):
         try:
             self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
         except ValueError:
-            # TODO: move to html file.
+            # TODO: move to html file.git
             return """<html><body>Coordinates You gave cannot be interpreted.<br>
             Coordinates should be one of:
             <ul>
@@ -231,12 +234,13 @@ class LookupServer(object):
     def get_info(self, catalog):
         if catalog.lower() in self.mocs:
             if not self.mocs[catalog.lower()].is_in(self.ra, self.dec):
-                base = html.Element('div')
-                header = html.Element('h2')
-                header.text = 'Not covered by %s' % catalog
-                base.append(header)
+                #base = html.Element('div')
+                #header = html.Element('h2')
+                #header.text = 'Not covered by %s' % catalog
+                #base.append(header)
                 # TODO: add DIV with "no cover" and "no data" catalogs to html
-                return tostring(base)
+                return '0%s' % catalog
+                #return tostring(base)
         if catalog in VIZIER_CATALOGS:
             return load_vizier(catalog, self.ra, self.dec)
         elif catalog in VSA_CATALOGS:

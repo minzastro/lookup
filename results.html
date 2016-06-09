@@ -14,13 +14,24 @@
                 //document.getElementById("result").innerHTML += catalogs[i];
                 jQuery.post('get_info', {catalog: catalogs[i]},
                        function(response){
-                           document.getElementById("result").innerHTML += response;
+                           if (response[0] == '0'){
+                               if (document.getElementById("notcovered").innerHTML == ''){
+                                   document.getElementById("notcovered").innerHTML += 'Not covered by: ' + response.substring(1);
+                               }
+                               else{
+                                   document.getElementById("notcovered").innerHTML += ',' + response.substring(1);
+                               }
+                           }
+                           else{
+                               document.getElementById("result").innerHTML += response;
+                           }
                        });
             }
         });
       </script>
     </head>
     <body>
+    <h2><div id="notcovered"></div></h2>
     <div id="result"></div>
     <div id="error"></div>
     </body>
