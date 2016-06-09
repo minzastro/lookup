@@ -11,7 +11,6 @@ from lxml.etree import tostring
 from lib.sql2file import sql_to_file
 from lib.sqlconnection import SQLConnection
 
-
 class BasicLookup(object):
     CATALOGS = {}
 
