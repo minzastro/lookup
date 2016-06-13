@@ -73,16 +73,11 @@ class BasicLookup(object):
         r = h.xpath(self.XPATH)
         base = self._build_basic_answer(catalog)
         if len(r) == 0:
-            div = html.Element('div')
-            div.text = 'Nothing for %s' % catalog
-            base.append(div)
-            return tostring(base)
+            return '1%s' % catalog
         r = r[0]
         r = self._post_process_table(r)
         if r is not None:
             base.append(r)
         else:
-            div = html.Element('div')
-            div.text = 'Nothing for %s' % catalog
-            base.append(div)
+            return '1%s' % catalog
         return tostring(base)

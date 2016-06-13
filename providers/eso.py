@@ -5,16 +5,12 @@ Created on Tue Jun  7 17:41:20 2016
 
 @author: mints
 """
-import requests as rq
 from lxml import html
 from requests_toolbelt.multipart.encoder import MultipartEncoder
-from providers.basic import BasicLookup
 from providers.login import LoginLookup
 from astropy.coordinates import SkyCoord
-import os, sys
 
 class ESOLookup(LoginLookup):
-#class ESOLookup(BasicLookup):
     XPATH = '//table'
 
     CATALOGS = {'KIDS': (53, [1, 2, 3, 7,

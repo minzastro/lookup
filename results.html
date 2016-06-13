@@ -8,6 +8,15 @@
       <script type="text/javascript" charset="utf8" src="static/jquery.js"></script>
       <script type="text/javascript" charset="utf8" src="static/viz2.js"></script>-->
       <script type="text/javascript" language="javascript" class="init">
+        function divbuild(label, prefix, text){
+            var div = document.getElementById(label);
+            if (div.innerHTML == ''){
+                document.getElementById(label).innerHTML = prefix + text;
+            } else {
+                document.getElementById(label).innerHTML += ', ' + text;
+            }
+
+        }
         jQuery(window).load(function(){
             var catalogs = [%s];
             for (var i = 0; i < catalogs.length; i++) {
@@ -15,12 +24,10 @@
                 jQuery.post('get_info', {catalog: catalogs[i]},
                        function(response){
                            if (response[0] == '0'){
-                               if (document.getElementById("notcovered").innerHTML == ''){
-                                   document.getElementById("notcovered").innerHTML += 'Not covered by: ' + response.substring(1);
-                               }
-                               else{
-                                   document.getElementById("notcovered").innerHTML += ',' + response.substring(1);
-                               }
+                               divbuild('notcovered', 'Not covered by: ', response.substring(1));
+                           }
+                           else if (response[0] == '1'){
+                               divbuild('nodata', 'No data from: ', response.substring(1));
                            }
                            else{
                                document.getElementById("result").innerHTML += response;
@@ -32,6 +39,7 @@
     </head>
     <body>
     <h2><div id="notcovered"></div></h2>
+    <h2><div id="nodata"></div></h2>
     <div id="result"></div>
     <div id="error"></div>
     </body>
