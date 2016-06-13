@@ -18,7 +18,7 @@ from mocfinder import MOCFinder as MOC
 from providers.vsa import VSALookup
 from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
-
+from providers.eso import ESOLookup
 
 def parse_arbitraty_coordinates(text):
     if '+' in text:
@@ -57,6 +57,7 @@ cherrypy.config.update({'error_page.404': error_page_404,
 vsa = VSALookup()
 vizier = VizierLookup()
 sql = SQLLookup()
+eso = ESOLookup()
 
 class LookupServer(object):
     def __init__(self):
@@ -65,7 +66,7 @@ class LookupServer(object):
             print name
             self.mocs[name[5:-5]] = MOC(name)
         self.catalogs = {}
-        for look in [vsa, vizier, sql]:
+        for look in [vsa, vizier, sql, eso]:
             for catalog in look.CATALOGS:
                 print catalog, look
                 self.catalogs[catalog] = look

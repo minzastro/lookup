@@ -60,6 +60,11 @@ class BasicLookup(object):
         text = req.content
         return html.fromstring(text)
 
+    def _debug_save(self, page, filename):
+        f = open(filename, 'w')
+        f.write(page)
+        f.close()
+
     def load_data(self, catalog, ra, dec, radius):
         """
         Load data, extract html table and prepare output div.
@@ -74,5 +79,10 @@ class BasicLookup(object):
             return tostring(base)
         r = r[0]
         r = self._post_process_table(r)
-        base.append(r)
+        if r is not None:
+            base.append(r)
+        else:
+            div = html.Element('div')
+            div.text = 'Nothing for %s' % catalog
+            base.append(div)
         return tostring(base)

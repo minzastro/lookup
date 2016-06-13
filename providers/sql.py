@@ -51,4 +51,5 @@ class SQLLookup(BasicLookup):
 
     def _post_process_table(self, table):
         table.attrib['border'] = '1'
+        table.attrib['cellspacing'] = '0'
         return table
