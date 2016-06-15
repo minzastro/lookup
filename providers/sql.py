@@ -12,6 +12,12 @@ from lxml import html
 
 
 class SQLLookup(BasicLookup):
+    """
+    This is designed to be used with PostgreSQL database.
+    TODO: add handling config from file.
+    TODO: migrate to sqlite database.
+    TODO: Add FITS lookup
+    """
     CONN = SQLConnection('x', database='sage_gap')
 
     CATALOGS = {'RAVE': ("""rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K,
@@ -29,6 +35,16 @@ class SQLLookup(BasicLookup):
                                   logg,logg_err,feh,feh_err,dist_mod,
                                   ebv_sfd,ebv_phot""",
                                'ra', '"dec"'),
+                'LAMOST_CANNON': ("""id,
+                                     cannon_teff, cannon_teff_err,
+                                     cannon_logg, cannon_logg_err,
+                                     cannon_m_h, cannon_m_h_err,
+                                     cannon_alpha_m, cannon_alpha_m_err,
+                                     snrg""",
+                               'ra', '"dec"'),
+                'GCS': ("""hip,plx, name, teff, e_teff, logg, e_logg,
+                           fe_h_, e_fe_h, __m_h_, __a_fe_, e_b_v_,
+                           rv, e_rv, agemlp, m_mlp""", '_raj2000', '_dej2000'),
                 'SEGUE': ("""specobjid,spectypehammer,teffadop,teffadopunc,
                              loggadop,loggadopunc,fehadop,fehadopunc,snr""",
                           'ra', '"dec"')

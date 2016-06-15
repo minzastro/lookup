@@ -9,9 +9,11 @@ from lxml import html
 from lxml.etree import tostring
 import requests as rq
 
+
 def _get_mags(maglist, prefix='PetroMag'):
     out = ['{0}{1},{0}{1}Err'.format(m, prefix) for m in maglist]
     return ','.join(out)
+
 
 class BasicLookup(object):
     """
@@ -73,11 +75,13 @@ class BasicLookup(object):
         r = h.xpath(self.XPATH)
         base = self._build_basic_answer(catalog)
         if len(r) == 0:
+            # No data
             return '1%s' % catalog
         r = r[0]
         r = self._post_process_table(r)
         if r is not None:
             base.append(r)
         else:
+            # No data
             return '1%s' % catalog
         return tostring(base)

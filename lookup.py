@@ -4,11 +4,6 @@ Created on Fri Oct 30 16:24:10 2015
 
 @author: mints
 """
-import sys
-#from os import path
-#NAME = '%s/..' % path.dirname(__file__)
-#sys.path.insert(0, path.abspath(NAME))
-print sys.path
 import cherrypy
 from cherrypy import _cperror
 from astropy.coordinates import SkyCoord
@@ -20,7 +15,12 @@ from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
 from providers.eso import ESOLookup
 
+
 def parse_arbitraty_coordinates(text):
+    """
+    Convert text with coordinates into ra/dec in degrees.
+    Supports decimal and HMS/DMS inputs.
+    """
     if '+' in text:
         ra, dec = text.split('+')
     elif '-' in text:
@@ -38,12 +38,6 @@ def parse_arbitraty_coordinates(text):
         return coord.ra.degree, coord.dec.degree
 
 
-LOCAL = '127.0.0.1:8001'
-SESSION_KEY = '_cp_username'
-
-def error_page_404(status, message, traceback, version):
-    return "Error %s - Page does not exist yet. It might appear later!" % status
-
 def handle_error():
     cherrypy.response.status = 500
     cherrypy.response.body = [
@@ -51,8 +45,7 @@ def handle_error():
         </body></html>""" % _cperror.format_exc()
     ]
 
-cherrypy.config.update({'error_page.404': error_page_404,
-                        'request.error_response': handle_error})
+cherrypy.config.update({'request.error_response': handle_error})
 
 vsa = VSALookup()
 vizier = VizierLookup()
@@ -100,8 +93,8 @@ class LookupServer(object):
     def get_info(self, catalog):
         if catalog.lower() in self.mocs:
             if not self.mocs[catalog.lower()].is_in(self.ra, self.dec):
+                # Not covered
                 return '0%s' % catalog
-
         return self.catalogs[catalog].load_data(catalog,
                                                 self.ra, self.dec,
                                                 self.radius)
