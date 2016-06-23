@@ -9,7 +9,7 @@ from cherrypy import _cperror
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 from glob import glob
-from mocfinder import MOCFinder as MOC
+from lib.mocfinder import MOCFinder as MOC
 from providers.vsa import VSALookup
 from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
