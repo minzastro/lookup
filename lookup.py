@@ -70,6 +70,11 @@ class LookupServer(object):
 
     @cherrypy.expose
     def search(self, coordinates, radius):
+        if radius > 30:
+            return """<html><body>
+            <h2>Error: radius (%s) is too large</h2><br>
+            <div>Maximum allowed radius is 30 arcseconds</div>
+            </body></html>""" % radius
         try:
             self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
         except ValueError:
