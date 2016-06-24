@@ -14,6 +14,7 @@ from providers.vsa import VSALookup
 from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
 from providers.eso import ESOLookup
+from providers.sqlite import SQLiteLookup
 
 
 def parse_arbitraty_coordinates(text):
@@ -50,6 +51,7 @@ cherrypy.config.update({'request.error_response': handle_error})
 vsa = VSALookup()
 vizier = VizierLookup()
 sql = SQLLookup()
+sqlite = SQLiteLookup()
 eso = ESOLookup()
 
 class LookupServer(object):
@@ -59,7 +61,7 @@ class LookupServer(object):
             print name
             self.mocs[name[5:-5]] = MOC(name)
         self.catalogs = {}
-        for look in [vsa, vizier, sql, eso]:
+        for look in [vsa, vizier, sql, sqlite, eso]:
             for catalog in look.CATALOGS:
                 print catalog, look
                 self.catalogs[catalog] = look
@@ -70,7 +72,7 @@ class LookupServer(object):
 
     @cherrypy.expose
     def search(self, coordinates, radius):
-        if radius > 30:
+        if float(radius) > 30:
             return """<html><body>
             <h2>Error: radius (%s) is too large</h2><br>
             <div>Maximum allowed radius is 30 arcseconds</div>
@@ -78,7 +80,7 @@ class LookupServer(object):
         try:
             self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
         except ValueError:
-            # TODO: move to html file.git
+            # TODO: move to html file
             return """<html><body>Coordinates You gave cannot be interpreted.<br>
             Coordinates should be one of:
             <ul>
@@ -87,6 +89,16 @@ class LookupServer(object):
             </ul>
             </body></html>
             """
+        if self.dec < -90. or self.dec > 90. or self.ra < 0 or self.ra > 360.:
+            return """<html><body>Coordinates You gave cannot be interpreted.<br>
+            Coordinates should be one of:
+            <ul>
+              <li>RA[+-\s]DE (in decimal degrees)</li>
+              <li>Or any text understood by <a href="http://docs.astropy.org/en/stable/coordinates/">astropy coordinates</a></li>
+            </ul>
+            </body></html>
+            """
+
         catalog_list = ["'%s'" % cat for cat in self.catalogs.keys()]
         ahtml = open('results.html', 'r').readlines()
         ahtml = ' '.join(ahtml)
