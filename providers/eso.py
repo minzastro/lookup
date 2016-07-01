@@ -13,18 +13,25 @@ from astropy.coordinates import SkyCoord
 class ESOLookup(LoginLookup):
     XPATH = '//table'
 
-    CATALOGS = {'KIDS': (53, [1, 2, 3, 7,
-                              130, 131, 132, 133,
-                              122, 123, 124, 125], 155, {}),
-                'VPHAS': (59, [1, 2, 3, 15, 16, 29, 30, 43, 44,
-                               56, 57, 69, 70, 83, 84, ], 99,
-                              {6: '=1'}),
-                'ATLAS': (66, [1, 5, 6, 29, 30, 31, 32, 33, 34,
+    CATALOGS = {'KIDS': {'id': 53,
+                         'fields': [1, 2, 3, 7, 130, 131, 132, 133,
+                                    122, 123, 124, 125],
+                         'fields_total': 155,
+                         'constraints': {}},
+                'VPHAS': {'id': 59,
+                          'fields': [1, 2, 3, 15, 16, 29, 30, 43, 44,
+                               56, 57, 69, 70, 83, 84, ],
+                          'fields_total': 99,
+                          'constraints': {6: '=1'}},
+                'ATLAS': {'id': 66,
+                          'fields': [1, 5, 6, 29, 30, 31, 32, 33, 34,
                                40, 41, 63, 64, 86, 87, 109, 110,
-                               132, 133, 155], 155, {11: '=0'})}
+                               132, 133, 155],
+                          'fields_total': 155,
+                          'constraints': {11: '=0'}}}
 
     LOGIN_URL = 'https://www.eso.org/sso/login?service=https%3A%2F%2Fwww.eso.org%3A443%2FUserPortal%2Fsecurity_check'
-    LOGIN_FILE = 'providers/eso.json'
+    LOGIN_FILE = 'providers/eso_login.json'
     ESO_URL = 'https://www.eso.org/sso/login'
 
     def get_login_payload(self, page):
@@ -40,8 +47,8 @@ class ESOLookup(LoginLookup):
         param = self.CATALOGS[catalog]
         self.center = SkyCoord(ra, dec, unit='deg')
         url = 'http://www.eso.org/qi/catalogQuery/search/%s' % param[0]
-        fields = ''.join([',row_%s_%s' % (param[0], item)
-                          for item in param[1]])
+        fields = ''.join([',row_%s_%s' % (param['id'], item)
+                          for item in param['fields']])
         payload = {
             'target': '%s %s' % (ra, dec),
             'epoch': 'J2000',
@@ -54,14 +61,14 @@ class ESOLookup(LoginLookup):
             'constraintTitleOld': '',
             'columnOrder': '',
             '_action_exportSpatial': 'Search',
-            'selectedFields_%s' % param[0]: fields,
+            'selectedFields_%s' % param['id']: fields,
             'targetFileName': ('filename', '', 'application/octet-stream')
         }
-        for i in xrange(1, param[2]+1):
-            if i in param[3]:
-                payload['param_%s_%s' % (param[0], i)] = param[3][i]
+        for i in xrange(1, param['fields_total']+1):
+            if i in param['constraints']:
+                payload['param_%s_%s' % (param['id'], i)] = param['constraints'][i]
             else:
-                payload['param_%s_%s' % (param[0], i)] = ''
+                payload['param_%s_%s' % (param['id'], i)] = ''
         multipart_data = MultipartEncoder(fields=payload)
         headers = {
             'Upgrade-Insecure-Requests': '1',

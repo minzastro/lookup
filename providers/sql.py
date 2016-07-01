@@ -20,34 +20,36 @@ class SQLLookup(BasicLookup):
     """
     CONN = SQLConnection('x', database='sage_gap')
 
-    CATALOGS = {'RAVE': ("""rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K,
+    CATALOGS = {'RAVE': {'columns': """rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K,
                             met_n_K,emet_K,snr_K, algo_conv_k,
                             distancemodulus_binney,age,mass""",
-                         'radeg', 'dedeg'),
-                'APOGEE': ("""apogee_id,snr,teff, teff_err,logg,logg_err,
+                         'ra': 'radeg', 'de': 'dedeg'},
+                'APOGEE': {'columns': """apogee_id,snr,teff, teff_err,logg,logg_err,
                               param_m_h,param_m_h_err,
                               param_alpha_m,param_alpha_m_err,
-                              ak_wise,ak_targ""", 'ra', '"dec"'),
-                'GAIA_ESO': ("""cname,ges_fld,object,teff,e_teff,logg,e_logg,
+                              ak_wise,ak_targ""",
+                           'ra': 'ra', 'de': '"dec"'},
+                'GAIA_ESO': {'columns': """cname,ges_fld,object,teff,e_teff,logg,e_logg,
                                 feh,e_feh,j_vista,h_vista,k_vista""",
-                             'ra', 'declination'),
-                'LAMOST_GAC': ("""spec_id,date,objid,objtype,teff,teff_err,
+                             'ra': 'ra', 'de': 'declination'},
+                'LAMOST_GAC': {'columns': """spec_id,date,objid,objtype,teff,teff_err,
                                   logg,logg_err,feh,feh_err,dist_mod,
                                   ebv_sfd,ebv_phot""",
-                               'ra', '"dec"'),
-                'LAMOST_CANNON': ("""id,
+                               'ra': 'ra', 'de': '"dec"'},
+                'LAMOST_CANNON': {'columns': """id,
                                      cannon_teff, cannon_teff_err,
                                      cannon_logg, cannon_logg_err,
                                      cannon_m_h, cannon_m_h_err,
                                      cannon_alpha_m, cannon_alpha_m_err,
                                      snrg""",
-                               'ra', '"dec"'),
-                'GCS': ("""hip,plx, name, teff, e_teff, logg, e_logg,
+                               'ra': 'ra', 'de': '"dec"'},
+                'GCS': {'columns': """hip,plx, name, teff, e_teff, logg, e_logg,
                            fe_h_, e_fe_h, __m_h_, __a_fe_, e_b_v_,
-                           rv, e_rv, agemlp, m_mlp""", '_raj2000', '_dej2000'),
-                'SEGUE': ("""specobjid,spectypehammer,teffadop,teffadopunc,
+                           rv, e_rv, agemlp, m_mlp""",
+                        'ra': '_raj2000', 'de': '_dej2000'},
+                'SEGUE': {'columns': """specobjid,spectypehammer,teffadop,teffadopunc,
                              loggadop,loggadopunc,fehadop,fehadopunc,snr""",
-                          'ra', '"dec"')
+                          'ra': 'ra', 'de': '"dec"'}
                 }
     XPATH = '//table[count(tr)>0]'
 
@@ -58,7 +60,7 @@ class SQLLookup(BasicLookup):
         from input_{1}
         where {3} between {5}-{6} and {5}+{6}
           and q3c_dist({2}, {3}, {4}, {5}) < {6}
-          """.format(param[0], catalog, param[1], param[2],
+          """.format(param['columns'], catalog, param['ra'], param['de'],
                      ra, dec, radius/3600.)
         sql_to_file(sql, write_format='html',
                     output_name='temp_%s' % catalog,

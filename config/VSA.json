@@ -1,0 +1,17 @@
+{
+  "VIKING": {
+    "table": "vikingSource",
+    "columns": "sourceID,ra,dec,mergedClass,pStar,eBV,zPetroMag,zPetroMagErr,yPetroMag,yPetroMagErr,jPetroMag,jPetroMagErr,hPetroMag,hPetroMagErr,ksPetroMag,ksPetroMagErr",
+    "database": "VIKINGDR4"
+  },
+  "VVV": {
+    "table": "vvvSource",
+    "columns": "sourceID,ra,dec,mergedClass,pStar,zAperMag3,zAperMag3Err,yAperMag3,yAperMag3Err,jAperMag3,jAperMag3Err,hAperMag3,hAperMag3Err,ksAperMag3,ksAperMag3Err",
+    "database": "VVVDR4"
+  },
+  "VHS": {
+    "table": "VHSsource",
+    "columns": "sourceID,ra,dec,mergedClass,pStar,eBV,yPetroMag,yPetroMagErr,jPetroMag,jPetroMagErr,hPetroMag,hPetroMagErr,ksPetroMag,ksPetroMagErr",
+    "database": "VHSDR3"
+  }
+}

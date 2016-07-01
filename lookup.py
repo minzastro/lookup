@@ -48,11 +48,8 @@ def handle_error():
 
 cherrypy.config.update({'request.error_response': handle_error})
 
-vsa = VSALookup()
-vizier = VizierLookup()
-sql = SQLLookup()
-sqlite = SQLiteLookup()
-eso = ESOLookup()
+lookups = [VSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
+           ESOLookup()]
 
 class LookupServer(object):
     def __init__(self):
@@ -61,7 +58,8 @@ class LookupServer(object):
             print name
             self.mocs[name[5:-5]] = MOC(name)
         self.catalogs = {}
-        for look in [vsa, vizier, sql, sqlite, eso]:
+        for look in lookups:
+            look.force_config_reload()
             for catalog in look.CATALOGS:
                 print catalog, look
                 self.catalogs[catalog] = look
@@ -69,6 +67,12 @@ class LookupServer(object):
     @cherrypy.expose
     def index(self):
         return open('index.html', 'r')
+
+    @cherrypy.expose
+    def reload_config(self):
+        for look in lookups:
+            look.force_config_reload()
+        return """<html>Config reloaded</html>"""
 
     @cherrypy.expose
     def search(self, coordinates, radius):

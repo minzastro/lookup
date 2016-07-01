@@ -25,7 +25,8 @@ def _query_to_html(sql, conn):
     return '\n'.join(result)
 
 class SQLiteLookup(BasicLookup):
-    CATALOGS = {'Kharchenko': ('Kharchenko', 'RAdeg', 'DEJ2000')}
+    CATALOGS = {'Kharchenko': {'table': 'Kharchenko',
+                               'ra': 'RAdeg', 'de': 'DEJ2000'}}
     XPATH = '//table[count(tbody/tr)>0]'
 
     def __init__(self):
@@ -43,11 +44,10 @@ class SQLiteLookup(BasicLookup):
                    from {table}
                   where {de_column} between {de} - {radius} and {de} + {radius}
                     and haversine({ra}, {de}, {ra_column}, {de_column}) < {radius}"""
-        table = _query_to_html(sql.format(ra=ra, de=dec, ra_column=params[1],
-                                          de_column=params[2],
+        table = _query_to_html(sql.format(ra=ra, de=dec, ra_column=params['ra'],
+                                          de_column=params['de'],
                                           radius=radius/3600.,
-                                          table=params[0]), self.conn)
-        print sql, table
+                                          table=params['table']), self.conn)
         return html.fragment_fromstring(table)
 
     def _post_process_table(self, table):

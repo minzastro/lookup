@@ -9,15 +9,18 @@ from providers.basic import BasicLookup, _get_mags
 
 class VSALookup(BasicLookup):
 
-    CATALOGS = {'VHS': ('VHSDR3', 'VHSsource',
-                        'sourceID,ra,dec,mergedClass,pStar,eBV,' +
-                        _get_mags(['y', 'j', 'h', 'ks'])),
-                'VIKING': ('VIKINGDR4', 'vikingSource',
-                           'sourceID,ra,dec,mergedClass,pStar,eBV,' +
-                           _get_mags(['z', 'y', 'j', 'h', 'ks'])),
-                'VVV': ('VVVDR4', 'vvvSource',
-                        'sourceID,ra,dec,mergedClass,pStar,' +
-                        _get_mags(['z', 'y', 'j', 'h', 'ks'], 'AperMag3')),
+    CATALOGS = {'VHS': {'database': 'VHSDR3',
+                        'table': 'VHSsource',
+                        'columns': 'sourceID,ra,dec,mergedClass,pStar,eBV,' +
+                        _get_mags(['y', 'j', 'h', 'ks'])},
+                'VIKING': {'database': 'VIKINGDR4',
+                           'table': 'vikingSource',
+                           'columns': 'sourceID,ra,dec,mergedClass,pStar,eBV,' +
+                           _get_mags(['z', 'y', 'j', 'h', 'ks'])},
+                'VVV': {'database': 'VVVDR4',
+                        'table': 'vvvSource',
+                        'columns': 'sourceID,ra,dec,mergedClass,pStar,' +
+                        _get_mags(['z', 'y', 'j', 'h', 'ks'], 'AperMag3')},
                 }
 
     URL = "http://horus.roe.ac.uk:8080/vdfs/WSASQL"
@@ -25,10 +28,10 @@ class VSALookup(BasicLookup):
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
-        payload = {'database': param[0],
+        payload = {'database': param['database'],
                    'archive': 'VSA',
                    'formaction': 'region',
-                   'from': param[1],
+                   'from': param['table'],
                    'ra': ra,
                    'dec': dec,
                    'sys': 'J',
@@ -41,6 +44,6 @@ class VSALookup(BasicLookup):
                    'format': 'HTML',
                    'compress': 'GZIP',
                    'rows': '5',
-                   'select': param[2],
+                   'select': param['columns'],
                    }
         return payload

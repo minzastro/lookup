@@ -8,7 +8,7 @@ Created on Wed Jun  8 11:56:47 2016
 from lxml import html
 from lxml.etree import tostring
 import requests as rq
-
+import simplejson as json
 
 def _get_mags(maglist, prefix='PetroMag'):
     out = ['{0}{1},{0}{1}Err'.format(m, prefix) for m in maglist]
@@ -29,6 +29,12 @@ class BasicLookup(object):
 
     # XPath of the data table in the page returned.
     XPATH = ''
+
+    def force_config_reload(self):
+        self.CATALOGS = json.load(open('config/%s.json' % self.__class__.__name__[:-6], 'r'))
+
+    def force_config_dump(self):
+        json.dump(self.CATALOGS, open('config/%s.json' % self.__class__.__name__[:-6], 'w'), indent=2)
 
     def _build_basic_answer(self, catalog):
         """
