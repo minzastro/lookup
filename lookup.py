@@ -8,13 +8,13 @@ import cherrypy
 from cherrypy import _cperror
 from astropy.coordinates import SkyCoord
 from astropy import units as u
-from glob import glob
-from lib.mocfinder import MOCFinder as MOC
+import cPickle
 from providers.vsa import VSALookup
 from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
 from providers.eso import ESOLookup
 from providers.sqlite import SQLiteLookup
+from providers.scuss import SCUSSLookup
 
 
 def parse_arbitraty_coordinates(text):
@@ -49,14 +49,11 @@ def handle_error():
 cherrypy.config.update({'request.error_response': handle_error})
 
 lookups = [VSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
-           ESOLookup()]
+           ESOLookup(), SCUSSLookup()]
 
 class LookupServer(object):
     def __init__(self):
-        self.mocs = {}
-        for name in glob('mocs/*.fits'):
-            print name
-            self.mocs[name[5:-5]] = MOC(name)
+        self.mocs = cPickle.load(open('all_mocs.pickle', 'r'))
         self.catalogs = {}
         for look in lookups:
             look.force_config_reload()

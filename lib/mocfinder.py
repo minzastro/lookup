@@ -29,9 +29,9 @@ class MOCFinder(object):
         """
         filename - FITS file containing MOC map.
         """
-        self.fitstbl = fits.open(filename)[1]
+        fitstbl = fits.open(filename)[1]
         self.healpix = {}
-        for row in self.fitstbl.data:
+        for row in fitstbl.data:
             order, npix = uniq(row[0])
             if order not in self.healpix:
                 self.healpix[order] = []
