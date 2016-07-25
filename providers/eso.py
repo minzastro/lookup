@@ -46,7 +46,7 @@ class ESOLookup(LoginLookup):
     def _get_html_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
         self.center = SkyCoord(ra, dec, unit='deg')
-        url = 'http://www.eso.org/qi/catalogQuery/search/%s' % param[0]
+        url = 'http://www.eso.org/qi/catalogQuery/search/%s' % param['id']
         fields = ''.join([',row_%s_%s' % (param['id'], item)
                           for item in param['fields']])
         payload = {
@@ -73,7 +73,7 @@ class ESOLookup(LoginLookup):
         headers = {
             'Upgrade-Insecure-Requests': '1',
             'Cache-Control': 'max-age=0',
-            'Referer': 'http://www.eso.org/qi/catalogQuery/index/%s?' % param[0],
+            'Referer': 'http://www.eso.org/qi/catalogQuery/index/%s?' % param['id'],
             'Connection': 'keep-alive',
             'Content-Type': multipart_data.content_type
         }
@@ -98,6 +98,6 @@ class ESOLookup(LoginLookup):
             de = float(row.getchildren()[2].text)
             c = SkyCoord(ra, de, unit="deg")
             td = html.Element('td')
-            td.text = c.separation(self.center).to_string(decimal=True)
+            td.text = (c.separation(self.center)*3600).to_string(decimal=True)
             row.append(td)
         return table

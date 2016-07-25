@@ -7,5 +7,8 @@
   "APASS": "II/336/apass9",
   "NOMAD": "I/297/out",
   "SDSS": "V/139/sdss9",
-  "2MASS": "II/246/out"
+  "2MASS": "II/246/out",
+  "IGSL": "I/324/igsl3",
+  "APOP": "I/331/apop",
+  "SPM4": "I/320/spm4"
 }
