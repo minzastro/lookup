@@ -30,11 +30,14 @@ class BasicLookup(object):
     # XPath of the data table in the page returned.
     XPATH = ''
 
+    def _brief_name(self):
+        return self.__class__.__name__[:-6]
+
     def force_config_reload(self):
-        self.CATALOGS = json.load(open('config/%s.json' % self.__class__.__name__[:-6], 'r'))
+        self.CATALOGS = json.load(open('config/%s.json' % self._brief_name(), 'r'))
 
     def force_config_dump(self):
-        json.dump(self.CATALOGS, open('config/%s.json' % self.__class__.__name__[:-6], 'w'), indent=2)
+        json.dump(self.CATALOGS, open('config/%s.json' % self._brief_name(), 'w'), indent=2)
 
     def _build_basic_answer(self, catalog):
         """
@@ -66,6 +69,7 @@ class BasicLookup(object):
                       data=self._prepare_request_data(catalog, ra, dec,
                                                       radius))
         text = req.content
+        #self._debug_save(text, 'debug_%s.html' % self._brief_name())
         return html.fromstring(text)
 
     def _debug_save(self, page, filename):

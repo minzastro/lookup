@@ -10,6 +10,7 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 import cPickle
 from providers.vsa import VSALookup
+from providers.ssa import SSALookup
 from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
 from providers.eso import ESOLookup
@@ -48,7 +49,7 @@ def handle_error():
 
 cherrypy.config.update({'request.error_response': handle_error})
 
-lookups = [VSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
+lookups = [SSALookup(), VSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
            ESOLookup(), SCUSSLookup()]
 
 class LookupServer(object):
