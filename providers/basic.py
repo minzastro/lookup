@@ -69,7 +69,7 @@ class BasicLookup(object):
                       data=self._prepare_request_data(catalog, ra, dec,
                                                       radius))
         text = req.content
-        #self._debug_save(text, 'debug_%s.html' % self._brief_name())
+        #self._debug_save(text, 'debug_%s.html' % catalog)
         return html.fromstring(text)
 
     def _debug_save(self, page, filename):

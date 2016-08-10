@@ -10,6 +10,7 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 import cPickle
 from providers.vsa import VSALookup
+from providers.wsa import WSALookup
 from providers.ssa import SSALookup
 from providers.vizier import VizierLookup
 from providers.sql import SQLLookup
@@ -49,7 +50,7 @@ def handle_error():
 
 cherrypy.config.update({'request.error_response': handle_error})
 
-lookups = [SSALookup(), VSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
+lookups = [SSALookup(), VSALookup(), WSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
            ESOLookup(), SCUSSLookup()]
 
 class LookupServer(object):
@@ -81,6 +82,7 @@ class LookupServer(object):
             </body></html>""" % radius
         try:
             self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
+            print coordinates, self.ra, self.dec
         except ValueError:
             # TODO: move to html file
             return """<html><body>Coordinates You gave cannot be interpreted.<br>

@@ -48,3 +48,12 @@ def add_distance_column(table, ra_column, de_column, center,
         return table
 
 
+def distance_column_arcsec(table, column, has_body=False):
+    if has_body:
+        rows = table.getchildren()[1].getchildren()
+    else:
+        rows = table.getchildren()[1:]
+    for row in rows:
+        cell = row.getchildren()[column]
+        cell.text = '%.3f' % (60.*float(cell.text))
+    return table
