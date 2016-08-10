@@ -6,6 +6,7 @@ Created on Thu Jun  9 09:48:40 2016
 @author: mints
 """
 from providers.basic import BasicLookup, _get_mags
+from lib.html_addons import replace_empty
 
 class VSALookup(BasicLookup):
 
@@ -47,3 +48,7 @@ class VSALookup(BasicLookup):
                    'select': param['columns'],
                    }
         return payload
+
+    def _post_process_table(self, table):
+        table = replace_empty(table, ['-9.999995E008'])
+        return table

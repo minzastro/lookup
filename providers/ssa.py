@@ -6,8 +6,9 @@ Created on Thu Jun  9 09:48:40 2016
 @author: mints
 """
 from lxml import html
-from astropy.coordinates import SkyCoord
 from providers.basic import BasicLookup, _get_mags
+from lib.html_addons import replace_empty, add_distance_column
+from astropy.coordinates import SkyCoord
 
 class SSALookup(BasicLookup):
 
@@ -37,20 +38,8 @@ class SSALookup(BasicLookup):
         return payload
 
     def _post_process_table(self, table):
-        for cell in table.xpath('//td[contains(., "-9.99999")]'):
-            cell.text = ''
-        for cell in table.xpath('//td[contains(., "-99.99999")]'):
-            cell.text = ''
         if len(table.getchildren()) == 0:
             return None
-        head = table.getchildren()[0] #.getchildren()[0]
-        head.getchildren()[1].text = 'Distance'
-        #body = table.getchildren()[1]
-        for row in table.getchildren()[1:]:
-            ra = float(row.getchildren()[2].text)
-            de = float(row.getchildren()[3].text)
-            c = SkyCoord(ra, de, unit="deg")
-            cell = row.getchildren()[1]
-            cell.text = (c.separation(self.center)*3600).to_string(decimal=True)
-            cell.remove(cell.getchildren()[0])
+        table = replace_empty(table, ['-9.99999', '-99.99999'])
+        table = add_distance_column(table, 2, 3, self.center, new_location=1)
         return table

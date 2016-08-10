@@ -8,6 +8,7 @@ Created on Tue Jun  7 17:41:20 2016
 from lxml import html
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 from providers.login import LoginLookup
+from lib.html_addons import replace_empty, add_distance_column
 from astropy.coordinates import SkyCoord
 
 class ESOLookup(LoginLookup):
@@ -88,16 +89,6 @@ class ESOLookup(LoginLookup):
         html.tostring(table)
         if len(table.getchildren()) == 0:
             return None
-        head = table.getchildren()[0].getchildren()[0]
-        th = html.Element('th')
-        th.text = 'Distance'
-        head.append(th)
-        body = table.getchildren()[1]
-        for row in body.getchildren():
-            ra = float(row.getchildren()[1].text)
-            de = float(row.getchildren()[2].text)
-            c = SkyCoord(ra, de, unit="deg")
-            td = html.Element('td')
-            td.text = (c.separation(self.center)*3600).to_string(decimal=True)
-            row.append(td)
+        table = add_distance_column(table, 1, 2, self.center, has_head=True,
+                                    has_body=True)
         return table
