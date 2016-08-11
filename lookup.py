@@ -50,7 +50,9 @@ def handle_error():
 
 cherrypy.config.update({'request.error_response': handle_error})
 
-lookups = [SSALookup(), VSALookup(), WSALookup(), VizierLookup(), SQLLookup(), SQLiteLookup(),
+lookups = [SSALookup(), VSALookup(),
+           WSALookup(), VizierLookup(),
+           SQLLookup(), SQLiteLookup(),
            ESOLookup(), SCUSSLookup()]
 
 class LookupServer(object):

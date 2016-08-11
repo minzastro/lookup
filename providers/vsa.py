@@ -6,7 +6,7 @@ Created on Thu Jun  9 09:48:40 2016
 @author: mints
 """
 from providers.basic import BasicLookup, _get_mags
-from lib.html_addons import replace_empty
+from lib.html_addons import replace_empty, distance_column_arcsec
 
 class VSALookup(BasicLookup):
 
@@ -51,4 +51,5 @@ class VSALookup(BasicLookup):
 
     def _post_process_table(self, table):
         table = replace_empty(table, ['-9.999995E008'])
+        table = distance_column_arcsec(table, -1)
         return table
