@@ -80,7 +80,6 @@ class ESOLookup(LoginLookup):
         }
         req = self.session.post(url, headers=headers, data=multipart_data)
         text = req.content
-        self._debug_save(text, '11.html')
         return html.fromstring(text)
 
     def _post_process_table(self, table):
