@@ -19,25 +19,44 @@
         }
         jQuery(window).load(function(){
             var catalogs = [%s];
+            var counter = catalogs.length;
             for (var i = 0; i < catalogs.length; i++) {
-                //document.getElementById("result").innerHTML += catalogs[i];
-                jQuery.post('get_info', {catalog: catalogs[i]},
+                var div = document.createElement('span');
+                div.id = 'wait-'+catalogs[i];
+                div.innerHTML = catalogs[i];
+                div.style.margin = '10px';
+                document.getElementById('pending_content').appendChild(div);
+                var params = {catalog: catalogs[i]};
+                jQuery.post('get_info', params,
                        function(response){
+                           var name = "";
                            if (response[0] == '0'){
                                divbuild('notcovered', 'Not covered by: ', response.substring(1));
+                               name = response.substring(1);
                            }
                            else if (response[0] == '1'){
                                divbuild('nodata', 'No data from: ', response.substring(1));
+                               name = response.substring(1);
                            }
                            else{
                                document.getElementById("result").innerHTML += response;
+                               name = this.data.split('=')[1];
+                           }
+                           var div = document.getElementById('wait-'+name);
+                           div.outerHTML = "";
+                           delete div;
+                           counter -= 1;
+                           if (counter == 0){
+                                $("div#pending").remove();
                            }
                        });
-            }
+            };
+
         });
       </script>
     </head>
     <body>
+    <h2><div id="pending">Awaiting for data from: <div id="pending_content"></div></div></h2>
     <h2><div id="notcovered"></div></h2>
     <h2><div id="nodata"></div></h2>
     <div id="result"></div>

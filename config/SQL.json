@@ -2,36 +2,36 @@
   "GAIA_ESO": {
     "de": "declination",
     "ra": "ra",
-    "columns": "cname,ges_fld,object,teff,e_teff,logg,e_logg,\n                                feh,e_feh,j_vista,h_vista,k_vista"
+    "columns": "cname,ges_fld,object,teff,e_teff,logg,e_logg,feh,e_feh,j_vista,h_vista,k_vista"
   },
   "LAMOST_GAC": {
     "de": "\"dec\"",
     "ra": "ra",
-    "columns": "spec_id,date,objid,objtype,teff,teff_err,\n                                  logg,logg_err,feh,feh_err,dist_mod,\n                                  ebv_sfd,ebv_phot"
+    "columns": "spec_id,date,objid,objtype,teff,teff_err, logg,logg_err,feh,feh_err,dist_mod, ebv_sfd,ebv_phot"
   },
   "SEGUE": {
     "de": "\"dec\"",
     "ra": "ra",
-    "columns": "specobjid,spectypehammer,teffadop,teffadopunc,\n                             loggadop,loggadopunc,fehadop,fehadopunc,snr"
+    "columns": "specobjid,spectypehammer,teffadop,teffadopunc,  loggadop,loggadopunc,fehadop,fehadopunc,snr"
   },
   "LAMOST_CANNON": {
     "de": "\"dec\"",
     "ra": "ra",
-    "columns": "id,\n                                     cannon_teff, cannon_teff_err,\n                                     cannon_logg, cannon_logg_err,\n                                     cannon_m_h, cannon_m_h_err,\n                                     cannon_alpha_m, cannon_alpha_m_err,\n                                     snrg"
+    "columns": "id, cannon_teff, cannon_teff_err, cannon_logg, cannon_logg_err, cannon_m_h, cannon_m_h_err, cannon_alpha_m, cannon_alpha_m_err, snrg"
   },
   "GCS": {
     "de": "_dej2000",
     "ra": "_raj2000",
-    "columns": "hip,plx, name, teff, e_teff, logg, e_logg,\n                           fe_h_, e_fe_h, __m_h_, __a_fe_, e_b_v_,\n                           rv, e_rv, agemlp, m_mlp"
+    "columns": "hip,plx, name, teff, e_teff, logg, e_logg,fe_h_, e_fe_h, __m_h_, __a_fe_, e_b_v_,rv, e_rv, agemlp, m_mlp"
   },
   "RAVE": {
     "de": "dedeg",
     "ra": "radeg",
-    "columns": "rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K,\n                            met_n_K,emet_K,snr_K, algo_conv_k,\n                            distancemodulus_binney,age,mass"
+    "columns": "rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K, met_n_K,emet_K,snr_K, algo_conv_k, distancemodulus_binney,age,mass"
   },
   "APOGEE": {
     "de": "\"dec\"",
     "ra": "ra",
-    "columns": "apogee_id,snr,teff, teff_err,logg,logg_err,\n                              param_m_h,param_m_h_err,\n                              param_alpha_m,param_alpha_m_err,\n                              ak_wise,ak_targ"
+    "columns": "apogee_id,snr,teff, teff_err,logg,logg_err,param_m_h,param_m_h_err,param_alpha_m,param_alpha_m_err,ak_wise,ak_targ"
   }
 }
