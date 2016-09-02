@@ -30,7 +30,7 @@ class LoginLookup(BasicLookup):
                        'password': login_data['password']}
             payload.update(self.get_login_payload(html.fromstring(text)))
             req = self.session.get(self.LOGIN_URL, params=payload)
-            self.post_login_hook()
+            self._debug_save(req.content, 'eso_login.html')
             self.enabled = True
         else:
             self.enabled = False

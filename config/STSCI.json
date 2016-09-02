@@ -1,0 +1,48 @@
+{
+  "K2": {
+    "url": "http://archive.stsci.edu/k2/data_search/search.php",
+    "full_url": "http://archive.stsci.edu/k2/data_search/search.php?target=&resolver=Resolve&radius={2}&ra={0}&dec={1}&equinox=J2000&ktc_k2_id=&ktc_investigation_id=&twoMass=&kp=&ktc_target_type%5B%5D=LC&ktc_target_type%5B%5D=SC&sci_campaign=&objtype=+&extra_column_name_1=ktc_k2_id&extra_column_value_1=&extra_column_name_2=ktc_k2_id&extra_column_value_2=&extra_column_name_3=ktc_k2_id&extra_column_value_3=&extra_column_name_4=ktc_k2_id&extra_column_value_4=&availableColumns=Mark&ordercolumn1=ang_sep&ordercolumn2=ktc_k2_id&ordercolumn3=&coordformat=dec&outputformat=HTML_Table&max_records=5001&max_rpp=500&action=Search&selectedColumnsCsv=",
+    "columns": [
+      "ktc_k2_id",
+      "sci_data_set_name",
+      "sci_campaign",
+      "objtype",
+      "sci_ra",
+      "sci_dec",
+      "ktc_target_type",
+      "ktc_investigation_id",
+      "ang_sep",
+      "rmag",
+      "e_rmag",
+      "jmag",
+      "e_jmag",
+      "kp",
+      "kepflag",
+      "hip",
+      "tyc",
+      "sdss",
+      "ucac",
+      "twomass",
+      "mflg",
+      "sci_module",
+      "sci_output",
+      "sci_channel",
+      "k2_hlsp"
+    ]
+  },
+  "HST": {
+    "full_url": "https://archive.stsci.edu/hst/hsc_sum/search.php?action=Search&target=&resolver=Resolve&radius={2}&ra={0}&dec={1}&equinox=J2000&mag_type=xcat.SumMagAper2CatView&numimages=%3E+1&extra_column_name_1=matchid&extra_column_value_1=&extra_column_name_2=matchid&extra_column_value_2=&availableColumns=matchid&ordercolumn1=ang_sep&ordercolumn2=matchid&ordercolumn3=&coordformat=dec&outputformat=HTML_Table&remnull=on&max_records=5001&max_rpp=500&selectedColumnsCsv=",
+    "columns": [
+      "matchid",
+      "numfilters",
+      "numvisits",
+      "numimages",
+      "targetname",
+      "matchra",
+      "matchdec",
+      "dsigma",
+      "abscorr",
+      "ang_sep"
+    ]
+  }
+}

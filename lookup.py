@@ -17,6 +17,7 @@ from providers.sql import SQLLookup
 from providers.eso import ESOLookup
 from providers.sqlite import SQLiteLookup
 from providers.scuss import SCUSSLookup
+from providers.stsci import STSCILookup
 
 
 def parse_arbitraty_coordinates(text):
@@ -53,7 +54,8 @@ cherrypy.config.update({'request.error_response': handle_error})
 lookups = [SSALookup(), VSALookup(),
            WSALookup(), VizierLookup(),
            SQLLookup(), SQLiteLookup(),
-           ESOLookup(), SCUSSLookup()]
+           ESOLookup(), SCUSSLookup(),
+           STSCILookup()]
 
 class LookupServer(object):
     def __init__(self):

@@ -28,10 +28,13 @@ def add_distance_column(table, ra_column, de_column, center,
             th = html.Element('th')
             th.text = 'Distance'
             head.append(th)
-        if has_body:
-            rows = table.getchildren()[1].getchildren()
+        children = table.getchildren()
+        if len(children) < 2:
+            rows = []
+        elif has_body:
+            rows = children[1].getchildren()
         else:
-            rows = table.getchildren()[1:]
+            rows = children[1:]
         for row in rows:
             ra = float(row.getchildren()[ra_column].text)
             de = float(row.getchildren()[de_column].text)
