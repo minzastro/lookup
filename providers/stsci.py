@@ -91,7 +91,8 @@ class STSCILookup(BasicLookup):
             head.remove(head.getchildren()[0])
         head.getchildren()[0].getchildren()[-1].text = '_r (arcsec)'
         for element in table.xpath('//a'):
-            element.attrib['href'] = 'http://archive.stsci.edu/' + \
-                                     element.attrib['href']
+            if not element.attrib['href'].startswith('http'):
+                element.attrib['href'] = 'http://archive.stsci.edu/' + \
+                                         element.attrib['href']
         table = distance_column_arcsec(table, -1, has_body=True)
         return table

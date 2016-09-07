@@ -94,4 +94,4 @@ class BasicLookup(object):
         else:
             # No data
             return '1%s' % catalog
-        return tostring(base)
+        return tostring(base, method='html')
