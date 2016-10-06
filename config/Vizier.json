@@ -16,5 +16,6 @@
   "GALEX": "II/312/ais",
   "IRAS": "II/338/catalog",
   "GAIA": "I/337/gaia",
-  "TGAS": "I/337/tgas"
+  "TGAS": "I/337/tgas",
+  "COROT": "B/corot/Faint_star"
 }

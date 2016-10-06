@@ -1,8 +1,8 @@
 {
-  "GAIA_ESO": {
-    "de": "declination",
-    "ra": "ra",
-    "columns": "cname,ges_fld,object,teff,e_teff,logg,e_logg,feh,e_feh,j_vista,h_vista,k_vista"
+  "GAIA_ESO4": {
+    "de": "dej2000",
+    "ra": "raj2000",
+    "columns": "specgroupid,teff,tefferr,logg,loggerr,feh,feherr,alphafe"
   },
   "LAMOST_GAC": {
     "de": "\"dec\"",
