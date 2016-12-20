@@ -27,7 +27,7 @@
   "RAVE": {
     "de": "dedeg",
     "ra": "radeg",
-    "columns": "rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K, met_n_K,emet_K,snr_K, algo_conv_k, distancemodulus_binney,age,mass"
+    "columns": "rave_obs_id,raveid,teff_K,eteff_K,logg_K,elogg_K, met_n_K,emet_K,snr_K, algo_conv, distancemodulus_binney"
   },
   "APOGEE": {
     "de": "\"dec\"",

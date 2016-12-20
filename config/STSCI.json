@@ -91,5 +91,20 @@
       "abscorr",
       "ang_sep"
     ]
+  },
+  "PanSTARRS": {
+    "full_url": "http://archive.stsci.edu/panstarrs/search.php?target=&resolver=Resolve&radius={2}&ra={0}&dec={1}&equinox=J2000&nDetections=%3E+1&availableColumns=objname&ordercolumn1=ang_sep&ordercolumn2=objid&ordercolumn3=&coordformat=sex&outputformat=HTML_Table&max_records=5001&max_rpp=500&action=Search&selectedColumnsCsv=",
+    "columns": [
+      "objname",
+      "objid",
+      "raMean",
+      "decMean",
+      "gmeanpsfmag",
+      "rmeanpsfmag",
+      "imeanpsfmag",
+      "zmeanpsfmag",
+      "ymeanpsfmag",
+      "ang_sep"
+    ]
   }
 }
