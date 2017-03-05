@@ -13,7 +13,8 @@ from providers.vsa import VSALookup
 from providers.wsa import WSALookup
 from providers.ssa import SSALookup
 from providers.vizier import VizierLookup
-from providers.sql import SQLLookup
+from providers.gcpd import GCPDLookup
+#from providers.sql import SQLLookup
 from providers.eso import ESOLookup
 from providers.sqlite import SQLiteLookup
 from providers.scuss import SCUSSLookup
@@ -53,7 +54,9 @@ cherrypy.config.update({'request.error_response': handle_error})
 
 lookups = [SSALookup(), VSALookup(),
            WSALookup(), VizierLookup(),
-           SQLLookup(), SQLiteLookup(),
+           GCPDLookup(),
+           #SQLLookup(), 
+           SQLiteLookup(),
            ESOLookup(), SCUSSLookup(),
            STSCILookup()]
 

@@ -29,6 +29,8 @@ class BasicLookup(object):
 
     # XPath of the data table in the page returned.
     XPATH = ''
+    
+    DEBUG = False
 
     def _brief_name(self):
         return self.__class__.__name__[:-6]
@@ -69,7 +71,8 @@ class BasicLookup(object):
                       data=self._prepare_request_data(catalog, ra, dec,
                                                       radius))
         text = req.content
-        #self._debug_save(text, 'debug_%s.html' % catalog)
+        if self.DEBUG:
+            self._debug_save(text, 'debug_%s.html' % catalog)
         return html.fromstring(text)
 
     def _debug_save(self, page, filename):
