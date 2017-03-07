@@ -17,7 +17,7 @@ from providers.gcpd import GCPDLookup
 #from providers.sql import SQLLookup
 from providers.eso import ESOLookup
 from providers.sqlite import SQLiteLookup
-from providers.scuss import SCUSSLookup
+from providers.china_vo import ChinaVOLookup
 from providers.stsci import STSCILookup
 
 
@@ -55,9 +55,9 @@ cherrypy.config.update({'request.error_response': handle_error})
 lookups = [SSALookup(), VSALookup(),
            WSALookup(), VizierLookup(),
            GCPDLookup(),
-           #SQLLookup(), 
+           #SQLLookup(),
            SQLiteLookup(),
-           ESOLookup(), SCUSSLookup(),
+           ESOLookup(), ChinaVOLookup(),
            STSCILookup()]
 
 class LookupServer(object):
@@ -129,4 +129,3 @@ class LookupServer(object):
 
 if __name__ == '__main__':
     cherrypy.quickstart(LookupServer(), config='lookup.conf')
-
