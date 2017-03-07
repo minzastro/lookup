@@ -14,7 +14,6 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 class ChinaVOLookup(BasicLookup):
     XPATH = '//table'
-    DEBUG = True
     CATALOGS = {
           "scuss": {'url': 'scuss',
             'fields': [
@@ -98,9 +97,10 @@ class ChinaVOLookup(BasicLookup):
         except rq.ReadTimeout:
             return html.fromstring(' '.join(result))
         text = req.content
-        f = open('%s.csv' % catalog, 'w')
-        f.write(text)
-        f.close()
+        if self.DEBUG:
+            with open('%s.csv' % catalog, 'w') as f:
+                f.write(text)
+                f.close()
         csv_reader = csv.reader(text.split('\n'))
         ihead = True
         rows = 0
