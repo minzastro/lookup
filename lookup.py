@@ -9,16 +9,22 @@ from cherrypy import _cperror
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 import cPickle
-from providers.vsa import VSALookup
-from providers.wsa import WSALookup
-from providers.ssa import SSALookup
-from providers.vizier import VizierLookup
-from providers.gcpd import GCPDLookup
-#from providers.sql import SQLLookup
-from providers.eso import ESOLookup
-from providers.sqlite import SQLiteLookup
-from providers.china_vo import ChinaVOLookup
-from providers.stsci import STSCILookup
+from importlib import import_module
+import traceback
+
+lookups = []
+
+for provider in ['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD',
+                 'ESO', 'SQLite', 'ChinaVO', 'STSCI']:
+    try:
+        print 'Importing %s class' % provider
+        class_ = getattr(import_module('providers.%s' % provider.lower()),
+                         '%sLookup' % provider)
+        lookups.append(class_())
+    except err:
+        print 'Import failed for %s' % provider
+        traceback.print_tb(err.__traceback__)
+        pass
 
 
 def parse_arbitraty_coordinates(text):
@@ -33,7 +39,7 @@ def parse_arbitraty_coordinates(text):
         dec = '-%s' % dec
     else:
         ra, dec = text.split(' ')
-    if ('.' in ra and not ' ' in ra) or ('.' in dec and not ' ' in dec):
+    if ('.' in ra and ' ' not in ra) or ('.' in dec and ' ' not in dec):
         return float(ra), float(dec)
     elif 'h' in ra:
         coord = SkyCoord(ra, dec)
@@ -50,15 +56,9 @@ def handle_error():
         </body></html>""" % _cperror.format_exc()
     ]
 
+
 cherrypy.config.update({'request.error_response': handle_error})
 
-lookups = [SSALookup(), VSALookup(),
-           WSALookup(), VizierLookup(),
-           GCPDLookup(),
-           #SQLLookup(),
-           SQLiteLookup(),
-           ESOLookup(), ChinaVOLookup(),
-           STSCILookup()]
 
 class LookupServer(object):
     def __init__(self):
@@ -126,6 +126,7 @@ class LookupServer(object):
         return self.catalogs[catalog].load_data(catalog,
                                                 self.ra, self.dec,
                                                 self.radius)
+
 
 if __name__ == '__main__':
     cherrypy.quickstart(LookupServer(), config='lookup.conf')

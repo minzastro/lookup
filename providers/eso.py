@@ -37,7 +37,7 @@ class ESOLookup(LoginLookup):
 
     def get_login_payload(self, page):
         form = page.xpath('//form')[0]
-        return {'lt': form.xpath('//input[@name="lt"]')[0].value,
+        return {'execution': form.xpath('//input[@name="execution"]')[0].value,
                 'service': 'https://www.eso.org:443/UserPortal/security_check',
                 '_eventId': 'submit'}
 
