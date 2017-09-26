@@ -5,15 +5,16 @@ Created on Thu Jun  9 10:16:28 2016
 
 @author: mints
 """
-from providers.basic import BasicLookup
+from providers.multipart import MultipartLookup
 import csv
 from lxml import html
-import requests as rq
-from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 
-class ChinaVOLookup(BasicLookup):
+class ChinaVOLookup(MultipartLookup):
+    URL = 'http://explore.china-vo.org'
+    KEEP_PLAIN_HTML = True
     XPATH = '//table'
+    DEBUG = True
     CATALOGS = {
           "scuss": {'url': 'scuss',
             'fields': [
@@ -67,14 +68,19 @@ class ChinaVOLookup(BasicLookup):
           ]}
         }
 
-    def _get_html_data(self, catalog, ra, dec, radius):
+    def _get_referer(self, catalog):
+        return 'http://explore.china-vo.org/data/%s/f' % self.CATALOGS[catalog]['url']
+
+    def _get_url(self, catalog, ra, dec, radius):
+        return 'http://explore.china-vo.org/data/%s/buildre.csv' % self.CATALOGS[catalog]['url']
+
+    def _prepare_request_data(self, catalog, ra, dec, radius):
         payload = {'pos.type': 'pos.cone',
-                        'pos.cra': str(ra),
-                        'pos.cdec': str(dec),
-                        'pos.cradius': str(radius),
-                        'setmaxrows': '1',
-                        'maxrows': '20',
-                        }
+                   'pos.cra': str(ra),
+                   'pos.cdec': str(dec),
+                   'pos.cradius': str(radius),
+                   'setmaxrows': '1',
+                   'maxrows': '20'}
         payload = payload.items()
         xcatalog = self.CATALOGS[catalog]
         for column in xcatalog['fields']:
@@ -82,28 +88,15 @@ class ChinaVOLookup(BasicLookup):
                             ('%s.min' % column, ''),
                             ('%s.max' % column, '')
                             ])
-        print payload
-        multipart_data = MultipartEncoder(fields=payload)
-        headers = {'Host': 'explore.china-vo.org',
-                   'Origin': 'http://explore.china-vo.org',
-                   'Referer': 'http://explore.china-vo.org/data/%s/f' % xcatalog['url'],
-                   'Accept-Encoding': 'gzip, deflate',
-                   'Content-Type': multipart_data.content_type
-                        }
-        result = ['<TABLE border="1">']
-        try:
-            req = rq.post('http://explore.china-vo.org/data/%s/buildre.csv' % xcatalog['url'],
-                          data=multipart_data, headers=headers, timeout=5)
-        except rq.ReadTimeout:
-            return html.fromstring(' '.join(result))
-        text = req.content
-        if self.DEBUG:
-            with open('%s.csv' % catalog, 'w') as f:
-                f.write(text)
-                f.close()
+        return payload
+
+    def _get_html_data(self, catalog, ra, dec, radius):
+        text = super(ChinaVOLookup, self)._get_html_data(catalog, ra, dec,
+                                                         radius)
         csv_reader = csv.reader(text.split('\n'))
         ihead = True
         rows = 0
+        result = ['<TABLE border="1">']
         for row in csv_reader:
             if len(row) == 0:
                 continue

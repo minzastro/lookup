@@ -9,7 +9,7 @@ class GCPDLookup(BasicLookup):
 
     URL = "http://obswww.unige.ch/gcpd/cgi-bin/genIndex.cgi"
 
-    DEBUG = True
+    DEBUG = False
 
     def force_config_reload(self):
         self.CATALOGS = {'GCPD': ''}

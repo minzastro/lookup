@@ -29,8 +29,11 @@ class BasicLookup(object):
 
     # XPath of the data table in the page returned.
     XPATH = ''
-    
+
     DEBUG = False
+
+    def __init__(self):
+        self.result_html = None
 
     def _brief_name(self):
         return self.__class__.__name__[:-6]
@@ -84,8 +87,8 @@ class BasicLookup(object):
         """
         Load data, extract html table and prepare output div.
         """
-        h = self._get_html_data(catalog, ra, dec, radius)
-        r = h.xpath(self.XPATH)
+        self.result_html = self._get_html_data(catalog, ra, dec, radius)
+        r = self.result_html.xpath(self.XPATH)
         base = self._build_basic_answer(catalog)
         if len(r) == 0:
             # No data
