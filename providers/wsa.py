@@ -35,6 +35,7 @@ class WSALookup(BasicLookup):
                    'compress': 'GZIP',
                    'rows': '10',
                    'select': 'default',
+                   'where': 'priOrSec = 0'
                    }
         return payload
 
