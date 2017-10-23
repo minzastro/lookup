@@ -67,7 +67,7 @@ class ESOLookup(LoginLookup):
             'selectedFields_%s' % param['id']: fields,
             'targetFileName': ('filename', '', 'application/octet-stream')
         }
-        for i in xrange(1, param['fields_total']+1):
+        for i in range(1, param['fields_total']+1):
             if i in param['constraints']:
                 payload['param_%s_%s' % (param['id'], i)] = param['constraints'][i]
             else:

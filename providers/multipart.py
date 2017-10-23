@@ -36,7 +36,7 @@ class MultipartLookup(BasicLookup):
             return html.fromstring('<TABLE border="1">')
         text = req.content
         if self.DEBUG:
-            with open('%s.html' % catalog, 'w') as f:
+            with open('%s.html' % catalog, 'wb') as f:
                 f.write(text)
                 f.close()
         if self.KEEP_PLAIN_HTML:

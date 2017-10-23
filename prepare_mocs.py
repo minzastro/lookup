@@ -1,10 +1,11 @@
 # coding: utf-8
-import joblib
+#import joblib
 from glob import glob
-import cPickle
+import pickle
 from lib.mocfinder import MOCFinder as MOC
 mocs = {}
 for name in glob('mocs/*.fits'):
-    print name
+    print(name)
     mocs[name[5:-5]] = MOC(name)
-cPickle.dump(mocs, open('all_mocs.pickle', 'w'))
+pickle.dump(mocs, open('all_mocs.pickle', 'wb'))
+#joblib.dump(mocs, 'all_mocks.joblib')

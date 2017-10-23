@@ -23,7 +23,7 @@ class VizierLookup(BasicLookup):
       'APASS': 'II/336/apass9',
       'URAT1': 'I/329/urat1'
     }
-
+    #DEBUG=True
     URL = 'http://vizier.u-strasbg.fr/viz-bin/VizieR'
 
     XPATH = '//div[@id="CDScore"]/table[@class="sort"]'

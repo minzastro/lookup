@@ -8,21 +8,22 @@ import cherrypy
 from cherrypy import _cperror
 from astropy.coordinates import SkyCoord
 from astropy import units as u
-import cPickle
+import pickle
 from importlib import import_module
 import traceback
 
 lookups = []
 
 for provider in ['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
-                 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2']:
+                 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2',
+                 'DECam']:
     try:
-        print 'Importing %s class' % provider
+        print('Importing %s class' % provider)
         class_ = getattr(import_module('providers.%s' % provider.lower()),
                          '%sLookup' % provider)
         lookups.append(class_())
-    except err:
-        print 'Import failed for %s' % provider
+    except Exception as err:
+        print('Import failed for %s' % provider)
         traceback.print_tb(err.__traceback__)
         pass
 
@@ -62,12 +63,12 @@ cherrypy.config.update({'request.error_response': handle_error})
 
 class LookupServer(object):
     def __init__(self):
-        self.mocs = cPickle.load(open('all_mocs.pickle', 'r'))
+        self.mocs = pickle.load(open('all_mocs.pickle', 'rb'))
         self.catalogs = {}
         for look in lookups:
             look.force_config_reload()
             for catalog in look.CATALOGS:
-                print catalog, look
+                print(catalog, look)
                 self.catalogs[catalog] = look
 
     @cherrypy.expose
@@ -89,7 +90,7 @@ class LookupServer(object):
             </body></html>""" % radius
         try:
             self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
-            print coordinates, self.ra, self.dec
+            print(coordinates, self.ra, self.dec)
         except ValueError:
             # TODO: move to html file
             return """<html><body>Coordinates You gave cannot be interpreted.<br>

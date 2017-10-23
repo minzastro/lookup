@@ -15,8 +15,10 @@ def uniq(value):
     npix = value - 4 * (4**order)
     return order, npix
 
+
 def cell_area(level):
     return (129600. / np.pi) * 4**(-level) / 12.
+
 
 class MOCFinder(object):
     """
@@ -47,7 +49,7 @@ class MOCFinder(object):
         decl = np.atleast_1d(decl)
         theta = 0.5*np.pi - np.radians(decl)
         phi = np.radians(ra)
-        keys = self.healpix.keys()
+        keys = list(self.healpix.keys())
         keys.sort()
         todo = np.ones(len(ra), dtype=bool)
         fullmask = np.arange(len(ra), dtype=int)
@@ -71,4 +73,4 @@ class MOCFinder(object):
 
 if __name__ == '__main__':
     moc_finder = MOCFinder('../rs/moc/MOC_sdss.fits')
-    print moc_finder.is_in([270., 140., 272., 0.], [24., -80, 22., -75.])
+    print(moc_finder.is_in([270., 140., 272., 0.], [24., -80, 22., -75.]))

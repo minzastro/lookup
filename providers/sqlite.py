@@ -6,7 +6,7 @@ Created on Fri Jun 24 16:24:02 2016
 @author: mints
 """
 import os
-from pysqlite2 import dbapi2 as sqlite3
+import sqlite3
 from providers.basic import BasicLookup
 from lxml import html
 

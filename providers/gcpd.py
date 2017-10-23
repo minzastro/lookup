@@ -26,7 +26,7 @@ class GCPDLookup(BasicLookup):
                                 abs(dec_tuple[1] + float(dec_tuple[2]) / 60.))
 
         radius = float(radius) / 60.
-        print ra, dec, ra0, dec0, dec_tuple
+        print(ra, dec, ra0, dec0, dec_tuple)
 
         payload = {'ident': '',
                    'equin': '2000',

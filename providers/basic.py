@@ -9,6 +9,8 @@ from lxml import html
 from lxml.etree import tostring
 import requests as rq
 import simplejson as json
+import os
+
 
 def _get_mags(maglist, prefix='PetroMag'):
     out = ['{0}{1},{0}{1}Err'.format(m, prefix) for m in maglist]
@@ -39,7 +41,10 @@ class BasicLookup(object):
         return self.__class__.__name__[:-6]
 
     def force_config_reload(self):
-        self.CATALOGS = json.load(open('config/%s.json' % self._brief_name(), 'r'))
+        jsonname = 'config/%s.json' % self._brief_name()
+        if not os.path.exists(jsonname):
+            self.force_config_dump()
+        self.CATALOGS = json.load(open(jsonname, 'r'))
 
     def force_config_dump(self):
         json.dump(self.CATALOGS, open('config/%s.json' % self._brief_name(), 'w'), indent=2)
@@ -79,7 +84,7 @@ class BasicLookup(object):
         return html.fromstring(text)
 
     def _debug_save(self, page, filename):
-        f = open(filename, 'w')
+        f = open(filename, 'wb')
         f.write(page)
         f.close()
 
@@ -89,14 +94,19 @@ class BasicLookup(object):
         """
         self.result_html = self._get_html_data(catalog, ra, dec, radius)
         r = self.result_html.xpath(self.XPATH)
-        base = self._build_basic_answer(catalog)
-        if len(r) == 0:
-            # No data
-            return '1%s' % catalog
-        r = r[0]
-        r = self._post_process_table(r)
         if r is not None:
-            base.append(r)
+            if len(r) == 0:
+                # No data
+                return '1%s' % catalog
+            base = self._build_basic_answer(catalog)
+            r = self._post_process_table(r[0])
+            if r is not None:
+                # Some providers can be more complex than other.
+                # Sometimes post-processing reveals that there is no data...
+                base.append(r)
+            else:
+                # No data
+                return '1%s' % catalog
         else:
             # No data
             return '1%s' % catalog

@@ -18,6 +18,8 @@ class DASCHLookup(BasicLookup):
 
     XPATH = '//pre'
 
+    DEBUG = True
+
     def _prepare_request_data(self, catalog, ra, dec, radius):
         return {'nmin': 1,
                 'box': int(radius),
@@ -32,8 +34,9 @@ class DASCHLookup(BasicLookup):
         Get html page with data. Default option is POST request to URL.
         """
         req = rq.post('%s?%s' % (self.URL,
-                                 urllib.urlencode(self._prepare_request_data(
-                                         catalog, ra, dec, radius))))
+                                 urllib.parse.urlencode(
+                                         self._prepare_request_data(
+                                             catalog, ra, dec, radius))))
         text = req.content
         if self.DEBUG:
             self._debug_save(text, 'debug_%s.html' % catalog)
@@ -44,6 +47,8 @@ class DASCHLookup(BasicLookup):
         First column contains references to full record on vizier - need
         to correct the URL there.
         """
+        if table.text_content().startswith('Data for this region is not available'):
+            return None
         for element in table.xpath('//a'):
             element.attrib['href'] = 'http://dasch.rc.fas.harvard.edu/' + \
                                      element.attrib['href']
