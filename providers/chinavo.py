@@ -81,7 +81,7 @@ class ChinaVOLookup(MultipartLookup):
                    'pos.cradius': str(radius),
                    'setmaxrows': '1',
                    'maxrows': '20'}
-        payload = payload.items()
+        payload = list(payload.items())
         xcatalog = self.CATALOGS[catalog]
         for column in xcatalog['fields']:
             payload.extend([('showcol', column),
@@ -93,7 +93,7 @@ class ChinaVOLookup(MultipartLookup):
     def _get_html_data(self, catalog, ra, dec, radius):
         text = super(ChinaVOLookup, self)._get_html_data(catalog, ra, dec,
                                                          radius)
-        csv_reader = csv.reader(text.split('\n'))
+        csv_reader = csv.reader(text.decode('utf-8').split('\n'))
         ihead = True
         rows = 0
         result = ['<TABLE border="1">']

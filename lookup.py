@@ -15,7 +15,7 @@ import traceback
 lookups = []
 
 for provider in ['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
-                 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2',
+                 'JPlus', 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2',
                  'DECam']:
     try:
         print('Importing %s class' % provider)

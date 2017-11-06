@@ -12,7 +12,6 @@ from providers.basic import BasicLookup
 
 
 class MultipartLookup(BasicLookup):
-    KEEP_PLAIN_HTML = False
     def _get_referer(self, catalog):
         return self.URL
 

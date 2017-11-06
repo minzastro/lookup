@@ -18,8 +18,6 @@ class DASCHLookup(BasicLookup):
 
     XPATH = '//pre'
 
-    DEBUG = True
-
     def _prepare_request_data(self, catalog, ra, dec, radius):
         return {'nmin': 1,
                 'box': int(radius),

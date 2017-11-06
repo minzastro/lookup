@@ -34,6 +34,8 @@ class BasicLookup(object):
 
     DEBUG = False
 
+    KEEP_PLAIN_HTML = False
+
     def __init__(self):
         self.result_html = None
 
@@ -81,7 +83,10 @@ class BasicLookup(object):
         text = req.content
         if self.DEBUG:
             self._debug_save(text, 'debug_%s.html' % catalog)
-        return html.fromstring(text)
+        if self.KEEP_PLAIN_HTML:
+            return text
+        else:
+            return html.fromstring(text)
 
     def _debug_save(self, page, filename):
         f = open(filename, 'wb')
