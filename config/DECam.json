@@ -1,0 +1,8 @@
+{
+  "DECaPS": {
+    "url": "https://faun.rc.fas.harvard.edu/decaps/release/band-merged/",
+    "bricks": "/home/mints/data/DES/bricks_DECaPS.fits",
+    "brick_file": "decam_flux_{4}.fits",
+    "radius": 3.0
+  }
+}
