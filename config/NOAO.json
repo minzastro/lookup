@@ -1,0 +1,34 @@
+{
+  "DES": {
+    "columns": "coadd_object_id, ra, dec, mag_auto_g, mag_auto_r, mag_auto_i",
+    "ra": "ra",
+    "dec": "dec",
+    "table": "des_dr1.main",
+    "formats": [
+      [
+        "ra",
+        "{:.5f}"
+      ],
+      [
+        "dec",
+        "{:.5f}"
+      ]
+    ]
+  },
+  "SMASH": {
+    "columns": "id, ra, dec, chi, sharp, umag, gmag, rmag, imag, zmag, uscatter, gscatter, rscatter, iscatter, zscatter",
+    "ra": "ra",
+    "dec": "dec",
+    "table": "smash_dr1.object",
+    "formats": [
+      [
+        "ra",
+        "{:.5f}"
+      ],
+      [
+        "dec",
+        "{:.5f}"
+      ]
+    ]
+  }
+}

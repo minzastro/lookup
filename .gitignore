@@ -59,3 +59,7 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+providers/eso_backup.json
+providers/eso_login.json
+providers/noao_login.json

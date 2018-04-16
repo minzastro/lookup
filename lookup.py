@@ -16,7 +16,7 @@ lookups = []
 
 for provider in ['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
                  'JPlus', 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2',
-                 'DECam']:
+                 'DECam', 'NOAO']:
     try:
         print('Importing %s class' % provider)
         class_ = getattr(import_module('providers.%s' % provider.lower()),
