@@ -43,13 +43,14 @@ class ESOLookup(LoginLookup):
 
     def post_login_hook(self):
         req = self.session.post('https://www.eso.org/sso/login?service=http%3A%2F%2Fwww.eso.org%2Fqi%2Fsecurity_check')
-        self._debug_save(req.content, 'ESO.html')
+        if self.DEBUG:
+            self._debug_save(req.content, 'ESO.html')
 
     def _get_html_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
         self.center = SkyCoord(ra, dec, unit='deg')
-        _ = self.session.post('http://www.eso.org/qi/catalogQuery/index/%s?' % param['id'])
-        url = 'http://www.eso.org/qi/catalogQuery/search/%s' % param['id']
+        _ = self.session.post('https://www.eso.org/qi/catalogQuery/index/%s?' % param['id'])
+        url = 'https://www.eso.org/qi/catalogQuery/search/%s' % param['id']
         fields = ''.join([',row_%s_%s' % (param['id'], item)
                           for item in param['fields']])
         payload = {
@@ -76,21 +77,21 @@ class ESOLookup(LoginLookup):
         headers = {
             'Upgrade-Insecure-Requests': '1',
             'Cache-Control': 'max-age=0',
-            'Referer': 'http://www.eso.org/qi/catalogQuery/index/%s?' % param['id'],
+            'Referer': 'https://www.eso.org/qi/catalogQuery/index/%s?' % param['id'],
             'Connection': 'keep-alive',
             'Content-Type': multipart_data.content_type
         }
         req = self.session.post(url, headers=headers, data=multipart_data)
         text = req.content
-        #self._debug_save(text, 'debug_%s.html' % catalog)
+        if self.DEBUG:
+            self._debug_save(text, 'debug_%s.html' % catalog)
         return html.fromstring(text)
 
     def _post_process_table(self, table):
         table.attrib['border'] = '1'
         table.attrib['cellspacing'] = '0'
-        #html.tostring(table)
         if len(table.getchildren()) == 0:
             return None
-        table = add_distance_column(table, 1, 2, self.center, has_head=True,
+        table = add_distance_column(table, 2, 3, self.center, has_head=True,
                                     has_body=True)
         return table

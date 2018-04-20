@@ -98,6 +98,9 @@ class BasicLookup(object):
         Load data, extract html table and prepare output div.
         """
         self.result_html = self._get_html_data(catalog, ra, dec, radius)
+        if self.result_html is None:
+            # No data
+            return '1%s' % catalog
         r = self.result_html.xpath(self.XPATH)
         if r is not None:
             if len(r) == 0:
