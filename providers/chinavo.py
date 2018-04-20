@@ -112,6 +112,7 @@ class ChinaVOLookup(MultipartLookup):
                 result.append('<TR>')
                 result.extend(['<TD>%s</TD>' % item for item in row])
                 result.append('</TR>')
+        result.append('</TABLE>')
         return html.fromstring(' '.join(result))
 
     def _post_process_table(self, table):
