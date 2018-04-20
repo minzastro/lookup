@@ -52,19 +52,17 @@ class NOAOLookup(BasicLookup):
         where {config['ra']} between {ra - ra_radius} and {ra + ra_radius}
         and {config['dec']} between {dec - radius / 3600} and {dec + radius / 3600}
         """
-        print(self.token, sql)
         table = self._query_to_votable(sql)
         for column, pformat in config['formats']:
             table[column].format = pformat
         s = table.pformat(html=True, show_unit=False)
-        print(s)
         return html.fromstring(' '.join(s))
 
     def _post_process_table(self, table):
         table.attrib['border'] = '1'
         table.attrib['cellspacing'] = '0'
         #html.tostring(table)
-        if len(table.getchildren()) == 0:
+        if len(table.getchildren()) <= 1:
             return None
         table = add_distance_column(table, 1, 2, self.center,
                                     has_head=True, has_body=False)
