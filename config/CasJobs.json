@@ -1,12 +1,20 @@
 {
   "HSCv2": [
     "casjobs.mast.auth",
+    "HSCv2",
     "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
     "select * from dbo.SearchDetailedCatalog({0}, {1}, {2}, 0) order by det desc, 2,3,4"
   ],
-  "GALEX_GR6Plus7": [
+  "GALEX_dr6": [
     "casjobs.mast.auth",
+    "GALEX_GR6Plus7",
     "http://galex.stsci.edu/casjobs/services/jobs.asmx",
     "SELECT 60 * n.distance, o.ra, o.dec, nuv_mag, nuv_magerr, fuv_mag, fuv_magerr from dbo.fGetNearbyObjEq({0}, {1}, {2} / 60.) n join PhotoObjAll o on o.objid = n.objid where primary_flag = 1 order by 1"
+  ],
+  "SDSS_spectra": [
+    "casjobs.sdss.auth",
+    "DR14",
+    "http://skyserver.sdss.org/casjobs/services/jobs.asmx",
+    "SELECT 60 * n.distance, o.ra, o.dec, class, o.specObjID, survey, o.plate, o.z from fGetNearbySpecObjAllEq({0}, {1}, {2} / 60.)  n join SpecObjAll o on o.specObjID = n.specObjID order by 1"
   ]
 }

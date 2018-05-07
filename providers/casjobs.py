@@ -24,10 +24,10 @@ class CasJobsLookup(BasicLookup):
         config = self.CATALOGS[catalog]
         auth = self._get_auth('providers/%s' % config[0])
         cas = casjobs.CasJobs(userid=auth[0], password=auth[1],
-                              base_url=config[1])
-        sql = config[2].format(ra, dec, radius)
+                              base_url=config[2])
+        sql = config[3].format(ra, dec, radius)
         print(sql)
-        output = cas.quick(sql, context=catalog)
+        output = cas.quick(sql, context=config[1])
         ihead = True
         rows = 0
         result = ['<TABLE border="1">']
