@@ -18,9 +18,10 @@
   "APASS":   "II/336/apass9",
   "IRAS":    "II/338/catalog",
   "HD":      "III/135A/catalog",
-  "SDSS":    "V/139/sdss9",
-  "MIPSGAL": "J/AJ/149/64/catalog",
-  "COROT":   "B/corot/Faint_star",
   "RAVE_DR5":"III/279/rave_dr5",
-  "LAMOST":  "V/149/dr2"
+  "SDSS":    "V/139/sdss9",
+  "LAMOST":  "V/149/dr2",
+  "GLEAM":   "VIII/100/gleamegc",
+  "MIPSGAL": "J/AJ/149/64/catalog",
+  "COROT":   "B/corot/Faint_star"
 }
