@@ -6,6 +6,7 @@ Created on Fri Oct 30 16:24:10 2015
 """
 import cherrypy
 from cherrypy import _cperror
+from cherrypy import log as cherrylog
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 import pickle
@@ -16,8 +17,8 @@ lookups = []
 
 for provider in ['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
                  'JPlus', 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2',
-                 'DECam', #'NOAO',
-                 'CasJobs']:
+                 'DECam', 'NOAO',
+                 'CasJobs', 'ASAS']:
     try:
         print('Importing %s class' % provider)
         class_ = getattr(import_module('providers.%s' % provider.lower()),
@@ -125,9 +126,14 @@ class LookupServer(object):
             if not self.mocs[catalog.lower()].is_in(self.ra, self.dec):
                 # Not covered
                 return '0%s' % catalog
-        return self.catalogs[catalog].load_data(catalog,
-                                                self.ra, self.dec,
-                                                self.radius)
+        try:
+            result = self.catalogs[catalog].load_data(catalog,
+                                                      self.ra, self.dec,
+                                                      self.radius)
+            return result
+        except Exception as exc:
+            cherrylog.error('Error for catalog: %s', catalog)
+            cherrylog.error(str(exc))
 
 
 if __name__ == '__main__':

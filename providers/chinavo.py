@@ -14,7 +14,6 @@ class ChinaVOLookup(MultipartLookup):
     URL = 'http://explore.china-vo.org'
     KEEP_PLAIN_HTML = True
     XPATH = '//table'
-    DEBUG = True
     CATALOGS = {
           "scuss": {'url': 'scuss',
             'fields': [

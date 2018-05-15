@@ -49,5 +49,4 @@ class CasJobsLookup(BasicLookup):
         result.append('</TABLE>')
         if rows == 0:
             return None
-        print(result)
         return html.fromstring(' '.join(result))

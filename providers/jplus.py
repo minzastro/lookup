@@ -18,8 +18,6 @@ class JPlusLookup(BasicLookup):
 
     URL = 'http://archive.cefca.es/catalogues/jplus-edr/cone_query'
 
-    DEBUG = True
-
     KEEP_PLAIN_HTML = True
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
