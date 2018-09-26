@@ -1,9 +1,21 @@
 {
-  "HSCv2": [
+  "HSCv3": [
     "casjobs.mast.auth",
-    "HSCv2",
+    "HSCv3",
     "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
     "select * from dbo.SearchDetailedCatalog({0}, {1}, {2}, 0) order by det desc, 2,3,4"
+  ],
+  "TESS_TIC_7": [
+    "casjobs.mast.auth",
+    "TESS_v7",
+    "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
+    "SELECT 60 * n.distance, o.ra, o.dec, Tmag, o.e_Tmag from fGetNearbyObjEq({0}, {1}, {2} / 60.)  n join catalogRecord o on o.objID = n.objID order by 1"
+  ],
+  "ATLAS_refcat": [
+    "casjobs.mast.auth",
+    "HLSP_ATLAS_REFCAT2",
+    "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
+    "SELECT 60 * n.distance, o.* from fGetNearbyObjEq({0}, {1}, {2} / 60.)  n join refcat2 o on o.objID = n.objID order by 1"
   ],
   "GALEX_dr6": [
     "casjobs.mast.auth",
