@@ -15,7 +15,7 @@
     "casjobs.mast.auth",
     "HLSP_ATLAS_REFCAT2",
     "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
-    "SELECT 60 * n.distance, o.* from fGetNearbyObjEq({0}, {1}, {2} / 60.)  n join refcat2 o on o.objID = n.objID order by 1"
+    "SELECT 60 * n.distance, o.* from fGetNearbyObjEq({0}, {1}, {2} / 3600.) n join refcat2 o on o.objID = n.objID order by 1"
   ],
   "GALEX_dr6": [
     "casjobs.mast.auth",
