@@ -7,6 +7,7 @@ Created on Fri Oct 30 16:24:10 2015
 import cherrypy
 from cherrypy import _cperror
 from cherrypy import log as cherrylog
+from cherrypy.lib.reprconf import Config
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 import pickle
@@ -67,11 +68,19 @@ class LookupServer(object):
     def __init__(self):
         self.mocs = pickle.load(open('all_mocs.pickle', 'rb'))
         self.catalogs = {}
+        self.config = Config('lookup.conf')
         for look in lookups:
             look.force_config_reload()
             for catalog in look.CATALOGS:
                 print(catalog, look)
                 self.catalogs[catalog] = look
+
+    def start(self):
+        cherrypy.config.update(self.config)
+        cherrypy.tree.mount(self, '/', config=self.config)
+        cherrypy.tree.mount(self, '/lookup', config=self.config)
+        cherrypy.engine.start()
+        cherrypy.engine.block()
 
     @cherrypy.expose
     def index(self):
@@ -137,4 +146,8 @@ class LookupServer(object):
 
 
 if __name__ == '__main__':
-    cherrypy.quickstart(LookupServer(), config='lookup.conf')
+    server = LookupServer()
+    server.start()
+
+#if __name__ == '__main__':
+#    cherrypy.quickstart(LookupServer(), config='lookup.conf')
