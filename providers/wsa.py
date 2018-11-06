@@ -11,14 +11,15 @@ from lib.html_addons import replace_empty, distance_column_arcsec
 
 class WSALookup(BasicLookup):
     CATALOGS = {'UKIDSS_LAS': '101',
-                'UKIDSS_GPS': '102'}
+                'UKIDSS_GPS': '102',
+                'UKIDSS_UHS': '107'}
 
     URL = "http://wsa.roe.ac.uk:8080/wsa/WSASQL"
     XPATH = '//table[count(tr)>1]'
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
-        payload = {'database': 'UKIDSSDR10PLUS',
+        payload = {'database': 'UHSDR1',
                    'programmeID': param,
                    'formaction': 'region',
                    'from': 'source',
