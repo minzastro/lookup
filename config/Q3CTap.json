@@ -1,7 +1,20 @@
 {
-  "des": {
+  "DES": {
     "url": "http://datalab.noao.edu/tap",
     "columns": "ra, dec, mag_auto_g, mag_auto_r, mag_auto_i",
-    "table": "des_dr1.main"
+    "table": "des_dr1.main",
+    "constraints": []
+  },
+  "DECaPS": {
+    "url": "http://datalab.noao.edu/tap",
+    "columns": "obj_id, ra, dec, ndet_ok, mean_mag_g, mean_mag_r, mean_mag_i, mean_mag_z, mean_mag_y",
+    "table": "decaps_dr1.object",
+    "constraints": ["ndet_ok > 0"]
+  },
+  "SMASH": {
+    "url": "http://datalab.noao.edu/tap",
+    "columns": "id, ra, dec, ndet, umag, gmag, rmag, imag, zmag, prob",
+    "table": "smash_dr2.object",
+    "constraints": ["ndet > 0"]
   }
 }

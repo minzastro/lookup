@@ -18,8 +18,12 @@ class Q3CTapLookup(TAPLookup):
     def _prepare_sql(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
         r = radius / 3600.
-        sql = f"""SELECT {param['columns']}, Q3C_DIST(ra, dec, {ra}, {dec})*3600 as distance
+        constraints = ''
+        if 'constraints' in param and len(param['constraints']) > 0:
+            constraints = "AND " + 'AND'.join(param['constraints'])
+        sql = f"""SELECT {param['columns']}, Q3C_DIST(ra, dec, {ra}, {dec})*3600.0 as distance
         FROM {param['table']} where 't' = Q3C_RADIAL_QUERY(ra, dec, {ra}, {dec}, {r})
+        {constraints}
         order by distance
         """
         return sql

@@ -20,6 +20,9 @@ class TAPLookup(BasicLookup):
     def _prepare_sql(self, catalog, ra, dec, radius):
         return ""
 
+    def _update_table(self, table, catalog, ra, dec, radius):
+        return table
+
     def load_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
         tap = TapPlus(param['url'])
@@ -29,6 +32,7 @@ class TAPLookup(BasicLookup):
             raise Exception('Prepare SQL not implemented')
         job = tap.launch_job(sql)
         result = job.get_data()
+        result = self._update_table(result, catalog, ra, dec, radius)
         if result is None:
             # No data
             return '1%s' % catalog

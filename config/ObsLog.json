@@ -1,7 +1,7 @@
 {
   "ESOLog": {
     "url": "http://archive.eso.org/tap_obs",
-    "columns": "dataproduct_type, dataproduct_subtype,facility_name, instrument_name, obs_collection, filter,access_estsize, access_url"
+    "columns": "distinct dataproduct_type, dataproduct_subtype,facility_name, instrument_name, obs_collection, filter"
   },
   "Canadian": {
     "url": "http://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/tap/",

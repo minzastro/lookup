@@ -1,0 +1,10 @@
+{
+  "SSA": {
+    "url": "http://wfaudata.roe.ac.uk/ssa-dsa/TAP",
+    "columns": "objID,ra, dec, classMagB, classMagR1, classMagR2",
+    "table": "source",
+    "constraints": [
+      "Nplates > 0"
+    ]
+  }
+}
