@@ -16,5 +16,29 @@
     "columns": "id, ra, dec, ndet, umag, gmag, rmag, imag, zmag, prob",
     "table": "smash_dr2.object",
     "constraints": ["ndet > 0"]
+  },
+  "DECaLS": {
+    "url": "http://datalab.noao.edu/tap",
+    "columns": "ls_id, ra, dec, mag_g, mag_r, mag_z, mag_w1, mag_w2, type",
+    "table": "ls_dr8.tractor_n",
+    "constraints": []
+  },
+  "BASS_MLZ": {
+    "url": "http://datalab.noao.edu/tap",
+    "columns": "ls_id, ra, dec, mag_g, mag_r, mag_z, mag_w1, mag_w2, type",
+    "table": "ls_dr8.tractor_s",
+    "constraints": []
+  },
+  "unWISE": {
+    "url": "http://datalab.noao.edu/tap",
+    "columns": "unwise_objid, ra, dec, mag_w1_vg, mag_w2_vg",
+    "table": "unwise_dr1.object",
+    "constraints": []
+  },
+  "NSC": {
+    "url": "http://datalab.noao.edu/tap",
+    "columns": "id, ra, dec, umag, gmag, rmag, imag, zmag, ymag, vrmag, nphot, class_star",
+    "table": "nsc_dr1.object",
+    "constraints": ["nphot > 0"]
   }
 }

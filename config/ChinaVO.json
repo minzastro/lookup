@@ -24,37 +24,5 @@
       "proper_motion.pmdec",
       "proper_motion.type"
     ]
-  },
-  "bassdr1gradd": {
-    "url": "bassdr1gradd",
-    "fields": [
-      "catalog.id",
-      "catalog.ra",
-      "catalog.dec",
-      "catalog.mag_auto_g",
-      "catalog.magerr_auto_g",
-      "catalog.psfmag_g",
-      "catalog.psfmagerr_g",
-      "catalog.type_auto_g",
-      "catalog.mag_auto_r",
-      "catalog.magerr_auto_r",
-      "catalog.psfmag_r",
-      "catalog.psfmagerr_r",
-      "catalog.type_auto_r"
-    ]
-  },
-  "bass": {
-    "url": "general/bass/catalog",
-    "fields": [
-      "catalog.bassid",
-      "catalog.ra",
-      "catalog.dec",
-      "catalog.mag_auto",
-      "catalog.magerr_auto",
-      "catalog.psfmag",
-      "catalog.psfmagerr",
-      "catalog.modelmag",
-      "catalog.modelmagerr"
-    ]
   }
 }
