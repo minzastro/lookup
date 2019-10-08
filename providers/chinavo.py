@@ -13,6 +13,7 @@ from lxml import html
 class ChinaVOLookup(MultipartLookup):
     URL = 'http://explore.china-vo.org'
     KEEP_PLAIN_HTML = True
+    DEBUG = True
     XPATH = '//table'
     CATALOGS = {
           "scuss": {'url': 'scuss',
@@ -71,7 +72,7 @@ class ChinaVOLookup(MultipartLookup):
         return 'http://explore.china-vo.org/data/%s/f' % self.CATALOGS[catalog]['url']
 
     def _get_url(self, catalog, ra, dec, radius):
-        return 'http://explore.china-vo.org/data/%s/buildre.csv' % self.CATALOGS[catalog]['url']
+        return 'http://explore.china-vo.org/data/%s/build.csvs' % self.CATALOGS[catalog]['url']
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
         payload = {'pos.type': 'pos.cone',
@@ -92,6 +93,8 @@ class ChinaVOLookup(MultipartLookup):
     def _get_html_data(self, catalog, ra, dec, radius):
         text = super(ChinaVOLookup, self)._get_html_data(catalog, ra, dec,
                                                          radius)
+        if self.DEBUG:
+            self._debug_save(text, 'debug_%s.html' % catalog)
         csv_reader = csv.reader(text.decode('utf-8').split('\n'))
         ihead = True
         rows = 0

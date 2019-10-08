@@ -43,14 +43,14 @@ class DECamLookup(BasicLookup):
             'brick_file': 'decam_flux_{4}.fits'
             },
         'DECaLS': {
-            'url': 'http://portal.nersc.gov/project/cosmo/data/legacysurvey/dr4/tractor/',
-            'bricks': '/home/mints/data/DES/survey-bricks-dr4.fits.gz',
+            'url': 'http://portal.nersc.gov/project/cosmo/data/legacysurvey/dr7/tractor/',
+            'bricks': '../data/survey-bricks.fits.gz',
             'radius': 1.,
             'brick_file': ''
 
             }
         }
-    DATA = fits.open('/home/mints/data/DES/bricks_DECaPS.fits')[1].data
+    DATA = None #fits.open('/home/mints/data/DES/bricks_DECaPS.fits')[1].data
 
     def __init__(self):
         super(DECamLookup, self).__init__()

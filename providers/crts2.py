@@ -6,8 +6,6 @@ class CRTS2Lookup(MultipartLookup):
 
     URL = "http://nunuku.caltech.edu/cgi-bin/getcssconedb_release_img.cgi"
 
-    DEBUG = True
-
     XPATH = '//div[contains(@class, "tabbertab")]/table//table'
 
     def force_config_reload(self):

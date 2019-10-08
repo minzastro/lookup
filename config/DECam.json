@@ -4,5 +4,11 @@
     "bricks": "/home/mints/data/DES/bricks_DECaPS.fits",
     "brick_file": "decam_flux_{4}.fits",
     "radius": 3.0
+  },
+  "DECaLS": {
+    "url": "http://portal.nersc.gov/project/cosmo/data/legacysurvey/dr7/tractor/",
+    "bricks": "../data/survey-bricks.fits.gz",
+    "radius": 1.0,
+    "brick_file": ""
   }
 }

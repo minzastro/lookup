@@ -14,9 +14,9 @@ from lxml.etree import tostring
 
 
 class JPlusLookup(BasicLookup):
-    CATALOGS = {'JPLUS_edr': []}
+    CATALOGS = {'JPLUS_dr1': []}
 
-    URL = 'http://archive.cefca.es/catalogues/jplus-edr/cone_query'
+    URL = 'http://archive.cefca.es/catalogues/jplus-dr1/cone_query'
 
     KEEP_PLAIN_HTML = True
 

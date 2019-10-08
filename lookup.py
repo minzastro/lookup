@@ -16,12 +16,13 @@ import traceback
 
 lookups = []
 
-for provider in ['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
-                 'JPlus', 'ESO', 'SQLite', 'ChinaVO', 'STSCI', 'CRTS2',
-                 'DECam', 'NOAO',
-                 'CasJobs', 'ASAS']:
+for provider in ['Q3CTap', 'ObsLog']: #['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
+                 #'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
+                 #'DECam', 'NOAO',
+                 #'CasJobs']:
     try:
         print('Importing %s class' % provider)
+        print('providers.%s' % provider.lower(), '%sLookup' % provider)
         class_ = getattr(import_module('providers.%s' % provider.lower()),
                          '%sLookup' % provider)
         lookups.append(class_())
@@ -141,7 +142,7 @@ class LookupServer(object):
                                                       self.radius)
             return result
         except Exception as exc:
-            cherrylog.error('Error for catalog: %s', catalog)
+            cherrylog.error('Error for catalog: %s' % catalog)
             cherrylog.error(str(exc))
 
 

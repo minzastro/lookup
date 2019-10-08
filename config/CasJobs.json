@@ -17,12 +17,6 @@
     "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
     "SELECT 60 * n.distance, o.* from fGetNearbyObjEq({0}, {1}, {2} / 3600.) n join refcat2 o on o.objID = n.objID order by 1"
   ],
-  "GALEX_dr6": [
-    "casjobs.mast.auth",
-    "GALEX_GR6Plus7",
-    "http://galex.stsci.edu/casjobs/services/jobs.asmx",
-    "SELECT 60 * n.distance, o.ra, o.dec, nuv_mag, nuv_magerr, fuv_mag, fuv_magerr from dbo.fGetNearbyObjEq({0}, {1}, {2} / 60.) n join PhotoObjAll o on o.objid = n.objid where primary_flag = 1 order by 1"
-  ],
   "SDSS_spectra": [
     "casjobs.sdss.auth",
     "DR14",

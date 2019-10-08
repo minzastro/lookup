@@ -1,7 +1,5 @@
 {
   "NOMAD":   "I/297/out",
-  "PPMXL":   "I/317/sample",
-  "SPM4":    "I/320/spm4",
   "URAT1":   "I/329/urat1",
   "APOP":    "I/331/apop",
   "GAIA":    "I/345/gaia2",
@@ -9,7 +7,7 @@
   "ASAS-I":  "II/264/asas-i",
   "ASAS3":   "II/264/asas3",
   "GLIMPSE": "II/293/glimpse",
-  "GALEX":   "II/312/ais",
+  "GALEX":   "II/335/galex_ais",
   "PTF":     "II/313/table3",
   "UKIDSS":  "II/319/las9",
   "IPHAS2":  "II/321/iphas2",
