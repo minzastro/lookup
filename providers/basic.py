@@ -36,6 +36,8 @@ class BasicLookup(object):
 
     KEEP_PLAIN_HTML = False
 
+    REQUEST_PARAMS = {}
+
     def __init__(self):
         self.result_html = None
 
@@ -77,7 +79,7 @@ class BasicLookup(object):
         """
         Get html page with data. Default option is POST request to URL.
         """
-        req = rq.post(self.URL,
+        req = rq.post(self.URL, params=self.REQUEST_PARAMS,
                       data=self._prepare_request_data(catalog, ra, dec,
                                                       radius))
         text = req.content
