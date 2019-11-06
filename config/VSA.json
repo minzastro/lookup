@@ -2,7 +2,7 @@
   "VIKING": {
     "table": "vikingSource",
     "columns": "sourceID,ra,dec,mergedClass,pStar,eBV,zPetroMag,zPetroMagErr,yPetroMag,yPetroMagErr,jPetroMag,jPetroMagErr,hPetroMag,hPetroMagErr,ksPetroMag,ksPetroMagErr",
-    "database": "VIKINGDR4"
+    "database": "VIKINGDR5"
   },
   "VVV": {
     "table": "vvvSource",
@@ -12,6 +12,6 @@
   "VHS": {
     "table": "VHSsource",
     "columns": "sourceID,ra,dec,mergedClass,pStar,eBV,yPetroMag,yPetroMagErr,jPetroMag,jPetroMagErr,hPetroMag,hPetroMagErr,ksPetroMag,ksPetroMagErr",
-    "database": "VHSDR3"
+    "database": "VHSDR6"
   }
 }

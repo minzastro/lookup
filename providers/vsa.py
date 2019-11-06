@@ -10,11 +10,11 @@ from lib.html_addons import replace_empty, distance_column_arcsec
 
 class VSALookup(BasicLookup):
 
-    CATALOGS = {'VHS': {'database': 'VHSDR3',
+    CATALOGS = {'VHS': {'database': 'VHSDR6',
                         'table': 'VHSsource',
                         'columns': 'sourceID,ra,dec,mergedClass,pStar,eBV,' +
                         _get_mags(['y', 'j', 'h', 'ks'])},
-                'VIKING': {'database': 'VIKINGDR4',
+                'VIKING': {'database': 'VIKINGDR5',
                            'table': 'vikingSource',
                            'columns': 'sourceID,ra,dec,mergedClass,pStar,eBV,' +
                            _get_mags(['z', 'y', 'j', 'h', 'ks'])},
