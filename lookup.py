@@ -16,10 +16,11 @@ import traceback
 
 lookups = []
 
-for provider in ['Q3CTap', 'BoxTap']: #['Vizier', 'VSA', 'WSA', 'SSA', 'GCPD', 'DASCH',
-                 #'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
+for provider in ['Q3CTap', 'BoxTap', 'Vizier', 'VSA', 'WSA', #'SSA', 
+                 'GCPD', 'DASCH', 'OGLE', 'ObsLog',
+                 'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
                  #'DECam', 'NOAO',
-                 #'CasJobs']:
+                 'CasJobs']:
     try:
         print('Importing %s class' % provider)
         print('providers.%s' % provider.lower(), '%sLookup' % provider)
