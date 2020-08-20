@@ -22,6 +22,8 @@ class ObsLogLookup(TAPLookup):
         sql = f"""SELECT {param['columns']}
         FROM ivoa.Obscore
         WHERE CONTAINS(POINT('ICRS', {ra}, {dec}), s_region)=1"""
+        if 'where' in param:
+            sql = sql + ' AND ' + ' AND '.join(param['where'])
         return sql
 
     def _post_process_table(self, table):

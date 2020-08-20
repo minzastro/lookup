@@ -27,7 +27,7 @@ class TAPLookup(BasicLookup):
         param = self.CATALOGS[catalog]
         tap = TapPlus(param['url'])
         sql = self._prepare_sql(catalog, ra, dec, radius)
-        print(sql)
+        print(catalog, sql)
         if sql is None:
             raise Exception('Prepare SQL not implemented')
         job = tap.launch_job(sql)
