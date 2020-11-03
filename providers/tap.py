@@ -39,7 +39,6 @@ class TAPLookup(BasicLookup):
         if len(result) == 0:
             # No data
             return '1%s' % catalog
-        print(catalog, len(result))
         base = self._build_basic_answer(catalog)
         table = html.fromstring(' '.join(result.pformat(html=True,
                                                         max_width=-1)[:-1]))
@@ -47,4 +46,5 @@ class TAPLookup(BasicLookup):
         table.attrib['cellspacing'] = '0'
         table = self._post_process_table(table)
         base.append(table)
+        print(catalog, len(result))
         return tostring(base, method='html')

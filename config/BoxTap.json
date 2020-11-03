@@ -12,6 +12,18 @@
     "table": "bgds.phot_all",
     "columns": "band_name, obs_id, ra, dec, mean_mag, amp, nobs",
     "constraints": []
+  },
+  "HELP_Spectra": {
+    "url": "https://herschel-vos.phys.sussex.ac.uk/__system__/tap/run/tap",
+    "table": "specz.main",
+    "columns": "field, ra, dec, z_spec, z_source, z_qual, notes",
+    "contraints": []
+  },
+  "HELP": {
+    "url": "https://herschel-vos.phys.sussex.ac.uk/__system__/tap/run/tap",
+    "table": "help_a_list.main",
+    "columns": "field, help_id, ra, dec, ebv, redshift, stellarity, m_best_u, m_best_g, m_best_r, m_best_i, m_best_z, m_best_y, m_best_j, m_best_h, m_best_ks",
+    "contraints": []
   }
  
 }

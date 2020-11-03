@@ -26,4 +26,5 @@ class Q3CTapLookup(TAPLookup):
         {constraints}
         order by distance
         """
+        print(catalog, sql)
         return sql
