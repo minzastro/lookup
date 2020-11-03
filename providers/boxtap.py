@@ -11,6 +11,11 @@ import astropy.units as u
 from astropy.coordinates import SkyCoord
 
 class BoxTapLookup(TAPLookup):
+    """
+    This lookup uses simplest box selection for
+    maximum compatibility,
+    but filters by real radius in post-processing.
+    """
     CATALOGS = {'SSA':
         {'url': "http://wfaudata.roe.ac.uk/ssa-dsa/TAP",
          'columns': "objID,ra, dec, classMagB, classMagR1, classMagR2",

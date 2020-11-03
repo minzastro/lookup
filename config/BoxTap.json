@@ -6,5 +6,12 @@
     "constraints": [
       "Nplates > 0"
     ]
+  },
+  "Bochum": {
+    "url": "http://dc.zah.uni-heidelberg.de/__system__/tap/run/tap",
+    "table": "bgds.phot_all",
+    "columns": "band_name, obs_id, ra, dec, mean_mag, amp, nobs",
+    "constraints": []
   }
+ 
 }

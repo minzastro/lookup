@@ -7,5 +7,10 @@
     "url": "http://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/argus/",
     "columns": "distinct obs_collection,facility_name,instrument_name,target_name, t_exptime, access_estsize, access_url",
     "where": ["obs_collection != 'TESS'"]
+  },
+  "APPLAUSE DR3": {
+    "url": "http://dc.zah.uni-heidelberg.de/__system__/tap/run/tap",
+    "columns": "obs_collection, obs_id, obs_title, target_name, target_class, t_exptime, facility_name, instrument_name, emulsion, filter, preview",
+    "table": "applause.main"
   }
 }

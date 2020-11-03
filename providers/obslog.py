@@ -19,8 +19,12 @@ class ObsLogLookup(TAPLookup):
 
     def _prepare_sql(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
+        if 'table' in param:
+            table = param['table']
+        else:
+            table = 'ivoa.Obscore'
         sql = f"""SELECT {param['columns']}
-        FROM ivoa.Obscore
+        FROM {table}
         WHERE CONTAINS(POINT('ICRS', {ra}, {dec}), s_region)=1"""
         if 'where' in param:
             sql = sql + ' AND ' + ' AND '.join(param['where'])
