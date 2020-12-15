@@ -2,7 +2,7 @@
   "NOMAD":   "I/297/out",
   "URAT1":   "I/329/urat1",
   "APOP":    "I/331/apop",
-  "GAIA":    "I/345/gaia2",
+  "GAIA":    "I/350/gaiaedr3",
   "2MASS":   "II/246/out",
   "ASAS-I":  "II/264/asas-i",
   "ASAS3":   "II/264/asas3",
@@ -18,7 +18,7 @@
   "HD":      "III/135A/catalog",
   "RAVE_DR5":"III/279/rave_dr5",
   "SDSS":    "V/139/sdss9",
-  "LAMOST":  "V/153/dr4",
+  "LAMOST":  "V/164/dr5",
   "GLEAM":   "VIII/100/gleamegc",
   "MIPSGAL": "J/AJ/149/64/catalog",
   "COROT":   "B/corot/Faint_star"
