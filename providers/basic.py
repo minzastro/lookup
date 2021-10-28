@@ -10,7 +10,7 @@ from lxml.etree import tostring
 import requests as rq
 import simplejson as json
 import os
-
+import uuid
 
 def _get_mags(maglist, prefix='PetroMag'):
     out = ['{0}{1},{0}{1}Err'.format(m, prefix) for m in maglist]
@@ -62,6 +62,18 @@ class BasicLookup(object):
         header.text = catalog
         base.append(header)
         return base
+
+    def _wrap(self, base):
+        wrapper = html.Element('div')
+        uid = uuid.uuid4()
+        button = html.Element('button')
+        button.attrib['class'] = 'collapsible'
+        button.text = "Open..."
+        wrapper.append(button)
+        wrapper.append(base)
+        return wrapper
+        #<button type="button" class="collapsible">Open Collapsible</button>
+
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
         """
@@ -120,4 +132,4 @@ class BasicLookup(object):
         else:
             # No data
             return '1%s' % catalog
-        return tostring(base, method='html')
+        return tostring(self._wrap(base), method='html')

@@ -1,6 +1,7 @@
 <html>
     <head>
       <!--<link rel="stylesheet" type="text/css" href="static/tablesort.css">-->
+      <link rel="stylesheet" type="text/css" href="static/lookup.css">
       <script type="text/javascript" charset="utf8" src="static/jquery.js"></script>
       <!--<script type="text/javascript">var jqMenu = $.noConflict();</script>
       <script type="text/javascript" src="static/cdsmenu.min.js"></script>
@@ -51,7 +52,20 @@
                            }
                        });
             };
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
 
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                }
+              });
+            }
         });
       </script>
     </head>
