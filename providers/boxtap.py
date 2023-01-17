@@ -25,6 +25,8 @@ class BoxTapLookup(TAPLookup):
     }
 
     def _update_table(self, table, catalog, ra, dec, radius):
+        if len(table) == 0:
+            return table
         c = SkyCoord(ra=ra*u.degree, dec=dec*u.degree)
         catalog = SkyCoord(ra=table['ra'], dec=table['dec'])
         table['distance'] = catalog.separation(c).arcsec

@@ -24,7 +24,7 @@ class VizierLookup(BasicLookup):
       'URAT1': 'I/329/urat1'
     }
     #DEBUG=True
-    URL = 'http://vizier.u-strasbg.fr/viz-bin/VizieR'
+    URL = 'http://cdsarc.u-strasbg.fr/viz-bin/VizieR'
 
     XPATH = '//div[@id="CDScore"]/table[@class="sort"]'
 
@@ -41,6 +41,6 @@ class VizierLookup(BasicLookup):
         to correct the URL there.
         """
         for element in table.xpath('//a[@class="full"]'):
-            element.attrib['href'] = 'http://vizier.u-strasbg.fr/viz-bin/' + \
+            element.attrib['href'] = 'http://cdsarc.u-strasbg.fr/viz-bin/' + \
                                      element.attrib['href']
         return table

@@ -10,7 +10,7 @@ from lxml.etree import tostring
 import requests as rq
 import simplejson as json
 import os
-import uuid
+
 
 def _get_mags(maglist, prefix='PetroMag'):
     out = ['{0}{1},{0}{1}Err'.format(m, prefix) for m in maglist]
@@ -51,29 +51,16 @@ class BasicLookup(object):
         self.CATALOGS = json.load(open(jsonname, 'r'))
 
     def force_config_dump(self):
-        json.dump(self.CATALOGS, open('config/%s.json' % self._brief_name(), 'w'), indent=2)
+        json.dump(self.CATALOGS,
+                  open('config/%s.json' % self._brief_name(), 'w'),
+                  indent=2)
 
     def _build_basic_answer(self, catalog):
         """
         Produce a basic "response" div.
         """
         base = html.Element('div')
-        header = html.Element('h2')
-        header.text = catalog
-        base.append(header)
         return base
-
-    def _wrap(self, base):
-        wrapper = html.Element('div')
-        uid = uuid.uuid4()
-        button = html.Element('button')
-        button.attrib['class'] = 'collapsible'
-        button.text = "Open..."
-        wrapper.append(button)
-        wrapper.append(base)
-        return wrapper
-        #<button type="button" class="collapsible">Open Collapsible</button>
-
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
         """
@@ -111,15 +98,16 @@ class BasicLookup(object):
         """
         Load data, extract html table and prepare output div.
         """
+        print(catalog, ra, dec, radius)
         self.result_html = self._get_html_data(catalog, ra, dec, radius)
         if self.result_html is None:
             # No data
-            return '1%s' % catalog
+            return {'status': 204, 'html': 'No data'}
         r = self.result_html.xpath(self.XPATH)
         if r is not None:
             if len(r) == 0:
                 # No data
-                return '1%s' % catalog
+                return {'status': 204, 'html': 'No data'}
             base = self._build_basic_answer(catalog)
             r = self._post_process_table(r[0])
             if r is not None:
@@ -128,8 +116,8 @@ class BasicLookup(object):
                 base.append(r)
             else:
                 # No data
-                return '1%s' % catalog
+                return {'status': 204, 'html': 'No data'}
         else:
             # No data
-            return '1%s' % catalog
-        return tostring(self._wrap(base), method='html')
+            return {'status': 204, 'html': 'No data'}
+        return {'status': 200, 'html': tostring(base, method='html')}

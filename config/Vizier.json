@@ -15,6 +15,7 @@
   "APASS":   "II/336/apass9",
   "IRAS":    "II/338/catalog",
   "SkyMapper": "II/358/smss",
+  "CatWISE": "II/365/catwise",
   "HD":      "III/135A/catalog",
   "RAVE_DR6":"III/283/ravedr6",
   "APOGEE DR16":"III/284/allstars",

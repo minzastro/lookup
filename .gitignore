@@ -63,3 +63,6 @@ target/
 providers/eso_backup.json
 providers/eso_login.json
 providers/noao_login.json
+providers/casjobs.mast.auth
+providers/casjobs.sdss.auth
+providers/hsc-release.pwd

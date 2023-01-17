@@ -46,7 +46,7 @@ class GCPDLookup(BasicLookup):
         r = h.xpath('//h2')
         if len(r) < 2:
             # No data
-            return '1%s' % catalog
+            return {'status': 204, 'html': 'No data'}
         for h2 in r[1:]:
             div = html.Element('div')
             next_element = h2.getnext()
@@ -60,7 +60,7 @@ class GCPDLookup(BasicLookup):
                 next_element = next_element.getnext()
             div.append(deepcopy(self._post_process_table(next_element)))
             base.append(deepcopy(div))
-        return tostring(base, method='html')
+        return {'status': 200, 'html': tostring(base, method='html')}
 
     def _post_process_table(self, table):
         """
