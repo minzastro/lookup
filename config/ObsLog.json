@@ -4,7 +4,7 @@
     "columns": "distinct dataproduct_type, dataproduct_subtype,facility_name, instrument_name, obs_collection, filter, access_estsize, access_url"
   },
   "Canadian": {
-    "url": "http://www.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/argus/",
+    "url": "https://ws.cadc-ccda.hia-iha.nrc-cnrc.gc.ca/argus",
     "columns": "distinct obs_collection,facility_name,instrument_name,target_name, t_exptime, access_estsize, access_url",
     "where": ["obs_collection != 'TESS'"]
   },

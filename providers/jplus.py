@@ -34,13 +34,13 @@ class JPlusLookup(BasicLookup):
         if r is not None:
             if 'rows' not in r:
                 # No data
-                return '1%s' % catalog
+                return {'status': 204, 'html': 'No data'}
             if not r['rows']:
                 # No data
-                return '1%s' % catalog
+                return {'status': 204, 'html': 'No data'}
             base = self._build_basic_answer(catalog)
             base.append(html.fromstring(pd.DataFrame(r['rows']).to_html()))
-            return tostring(base, method='html')
+            return {'status': 200, 'html': tostring(base, method='html')}
         else:
             # No data
-            return '1%s' % catalog
+            return {'status': 204, 'html': 'No data'}

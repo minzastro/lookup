@@ -1,8 +1,8 @@
 {
   "SSA": {
-    "url": "http://wfaudata.roe.ac.uk/ssa-dsa/TAP",
+    "url": "http://tap.roe.ac.uk/vsa",
     "columns": "objID,ra, dec, classMagB, classMagR1, classMagR2",
-    "table": "source",
+    "table": "ssa.sources",
     "constraints": [
       "Nplates > 0"
     ]
@@ -25,5 +25,5 @@
     "columns": "field, help_id, ra, dec, ebv, redshift, stellarity, m_best_u, m_best_g, m_best_r, m_best_i, m_best_z, m_best_y, m_best_j, m_best_h, m_best_ks",
     "contraints": []
   }
- 
+
 }

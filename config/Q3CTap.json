@@ -1,44 +1,38 @@
 {
   "DES": {
-    "url": "http://datalab.noao.edu/tap",
+    "url": "http://datalab.noirlab.edu/tap",
     "columns": "ra, dec, mag_auto_g, mag_auto_r, mag_auto_i",
-    "table": "des_dr1.main",
+    "table": "des_dr2.main",
     "constraints": []
   },
   "DECaPS": {
-    "url": "http://datalab.noao.edu/tap",
+    "url": "http://datalab.noirlab.edu/tap",
     "columns": "obj_id, ra, dec, ndet_ok, mean_mag_g, mean_mag_r, mean_mag_i, mean_mag_z, mean_mag_y",
-    "table": "decaps_dr1.object",
+    "table": "decaps_dr2.object",
     "constraints": ["ndet_ok > 0"]
   },
   "SMASH": {
-    "url": "http://datalab.noao.edu/tap",
+    "url": "http://datalab.noirlab.edu/tap",
     "columns": "id, ra, dec, ndet, umag, gmag, rmag, imag, zmag, prob",
     "table": "smash_dr2.object",
     "constraints": ["ndet > 0"]
   },
   "DECaLS": {
-    "url": "http://datalab.noao.edu/tap",
+    "url": "http://datalab.noirlab.edu/tap",
     "columns": "ls_id, ra, dec, mag_g, mag_r, mag_z, mag_w1, mag_w2, type",
-    "table": "ls_dr8.tractor_n",
-    "constraints": []
-  },
-  "BASS_MLZ": {
-    "url": "http://datalab.noao.edu/tap",
-    "columns": "ls_id, ra, dec, mag_g, mag_r, mag_z, mag_w1, mag_w2, type",
-    "table": "ls_dr8.tractor_s",
+    "table": "ls_dr10.tractor",
     "constraints": []
   },
   "unWISE": {
-    "url": "http://datalab.noao.edu/tap",
+    "url": "http://datalab.noirlab.edu/tap",
     "columns": "unwise_objid, ra, dec, mag_w1_vg, mag_w2_vg",
     "table": "unwise_dr1.object",
     "constraints": []
   },
   "NSC": {
-    "url": "http://datalab.noao.edu/tap",
+    "url": "http://datalab.noirlab.edu/tap",
     "columns": "id, ra, dec, umag, gmag, rmag, imag, zmag, ymag, vrmag, nphot, class_star",
-    "table": "nsc_dr1.object",
+    "table": "nsc_dr2.object",
     "constraints": ["nphot > 0"]
   }
 }
