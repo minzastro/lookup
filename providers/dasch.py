@@ -13,7 +13,7 @@ from providers.basic import BasicLookup
 
 class DASCHLookup(BasicLookup):
     CATALOGS = {'DASCH': []}
-
+    DEBUG = True
     URL = "http://dasch.rc.fas.harvard.edu/lightcurve_cat_input.php"
 
     XPATH = '//pre'
@@ -38,7 +38,11 @@ class DASCHLookup(BasicLookup):
         text = req.content
         if self.DEBUG:
             self._debug_save(text, 'debug_%s.html' % catalog)
-        return html.fromstring(text)
+        hhh = html.fromstring(text)
+        content = hhh.xpath(self.XPATH)[0]
+        content.attrib['style'] = 'background-color: azure;border-bottom:1px solid #000000'
+        #import ipdb; ipdb.set_trace()
+        return hhh # html.fromstring(text)
 
     def _post_process_table(self, table):
         """

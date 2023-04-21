@@ -23,12 +23,6 @@
     "table": "ls_dr10.tractor",
     "constraints": []
   },
-  "unWISE": {
-    "url": "http://datalab.noirlab.edu/tap",
-    "columns": "unwise_objid, ra, dec, mag_w1_vg, mag_w2_vg",
-    "table": "unwise_dr1.object",
-    "constraints": []
-  },
   "NSC": {
     "url": "http://datalab.noirlab.edu/tap",
     "columns": "id, ra, dec, umag, gmag, rmag, imag, zmag, ymag, vrmag, nphot, class_star",

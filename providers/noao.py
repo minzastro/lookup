@@ -9,7 +9,6 @@ import os
 import simplejson as json
 import numpy as np
 from lxml import html
-import requests as rq
 from providers.basic import BasicLookup
 from dl import authClient, queryClient
 from astropy.table import Table
@@ -17,6 +16,7 @@ from astropy.io import votable
 import tempfile
 from lib.html_addons import add_distance_column
 from astropy.coordinates import SkyCoord
+
 
 class NOAOLookup(BasicLookup):
     LOGIN_FILE = 'providers/noao_login.json'

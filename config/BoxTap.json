@@ -1,8 +1,8 @@
 {
   "SSA": {
-    "url": "http://tap.roe.ac.uk/vsa",
+    "url": "http://wfaudata.roe.ac.uk/ssa-dsa/TAP",
     "columns": "objID,ra, dec, classMagB, classMagR1, classMagR2",
-    "table": "ssa.sources",
+    "table": "Source",
     "constraints": [
       "Nplates > 0"
     ]
