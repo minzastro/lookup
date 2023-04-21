@@ -10,8 +10,9 @@ import jinja2
 
 lookups = []
 
-for provider in ['ObsLog','Q3CTap', 'BoxTap', 'Vizier', 'VSA', 'WSA', #'SSA',
-                 'GCPD', 'DASCH', 'OGLE',
+for provider in ['ObsLog','Q3CTap', 'BoxTap', 'Vizier', 'VSA', 'WSA',
+                 'GCPD',
+                 'DASCH', 'OGLE',
                  'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
                  'DECam', 'NOAO',
                  'CasJobs'
