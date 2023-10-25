@@ -9,7 +9,7 @@ from providers.tap import TAPLookup
 
 class Q3CTapLookup(TAPLookup):
     CATALOGS = {'des':
-        {'url': "http://datalab.noao.edu/tap",
+        {'url': "https://datalab.noao.edu/tap",
          'columns': "ra, dec, mag_auto_g, mag_auto_r, mag_auto_i",
          'table': 'des_dr1.main'
         }

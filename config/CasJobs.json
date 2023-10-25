@@ -1,10 +1,4 @@
 {
-  "HSCv3": [
-    "casjobs.mast.auth",
-    "HSCv3",
-    "http://mastweb.stsci.edu/gcasjobs/services/jobs.asmx",
-    "select * from dbo.SearchDetailedCatalog({0}, {1}, {2}, 0) order by det desc, 2,3,4"
-  ],
   "TESS_TIC_7": [
     "casjobs.mast.auth",
     "TESS_v7",
@@ -19,8 +13,8 @@
   ],
   "SDSS_spectra": [
     "casjobs.sdss.auth",
-    "DR14",
+    "DR18",
     "http://skyserver.sdss.org/casjobs/services/jobs.asmx",
-    "SELECT 60 * n.distance, o.ra, o.dec, class, o.specObjID, survey, o.plate, o.z from fGetNearbySpecObjAllEq({0}, {1}, {2} / 60.)  n join SpecObjAll o on o.specObjID = n.specObjID order by 1"
+    "SELECT 60 * n.distance, o.ra, o.dec, class, o.specObjID, survey, o.plate, o.z from fGetNearbySpecObjEq({0}, {1}, {2} / 60.)  n join SpecObj o on o.specObjID = n.specObjID order by 1"
   ]
 }

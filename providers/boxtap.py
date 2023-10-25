@@ -42,10 +42,16 @@ class BoxTapLookup(TAPLookup):
         constraints = ''
         if 'constraints' in param and len(param['constraints']) > 0:
             constraints = "AND " + 'AND'.join(param['constraints'])
+        if 'ra_dec' in param.keys():
+            pos_constraint = f"""{param['ra_dec'][0]} between {ra - r1} and {ra + r1}
+          and {param['ra_dec'][1]} between {dec - r} and {dec + r}"""
+        else:
+            pos_constraint = f"""ra between {ra - r1} and {ra + r1}
+          and dec between {dec - r} and {dec + r}"""
         sql = f"""SELECT {param['columns']}
         FROM {param['table']}
-        where ra between {ra - r1} and {ra + r1}
-          and dec between {dec - r} and {dec + r}
+        where {pos_constraint}
         {constraints}
         """
+        print(catalog, sql)
         return sql

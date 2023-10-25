@@ -10,11 +10,13 @@ import jinja2
 
 lookups = []
 
-for provider in ['ObsLog','Q3CTap', 'BoxTap', 'Vizier', 'VSA', 'WSA',
+for provider in ['ObsLog',
+                 'Q3CTap', 'BoxTap',
+                 'Vizier', 'VSA', 'WSA',
                  'GCPD',
                  'DASCH', 'OGLE',
                  'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
-                 'DECam', 'NOAO',
+                 #'DECam',
                  'CasJobs'
                  ]:
     try:
@@ -115,7 +117,7 @@ class LookupServer(object):
                }
                );
            }
-           jQuery(window).load(function(){
+           jQuery(window).on('load', function(){
                var catalogs = {{catalogs}};
                var counter = catalogs.length;
                for (var i = 0; i < catalogs.length; i++) {

@@ -9,7 +9,7 @@
     "where": ["obs_collection != 'TESS'"]
   },
   "APPLAUSE_DR3": {
-    "url": "http://dc.zah.uni-heidelberg.de/__system__/tap/run/tap",
+    "url": "https://dc.zah.uni-heidelberg.de/tap",
     "columns": "obs_collection, obs_id, obs_title, target_name, target_class, t_exptime, facility_name, instrument_name, emulsion, filter, preview",
     "table": "applause.main"
   }
