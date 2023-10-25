@@ -8,7 +8,7 @@
     ]
   },
   "Bochum": {
-    "url": "http://dc.zah.uni-heidelberg.de/__system__/tap/run/tap",
+    "url": "http://dc.zah.uni-heidelberg.de/tap",
     "table": "bgds.phot_all",
     "columns": "band_name, obs_id, ra, dec, mean_mag, amp, nobs",
     "constraints": []
@@ -24,6 +24,23 @@
     "table": "help_a_list.main",
     "columns": "field, help_id, ra, dec, ebv, redshift, stellarity, m_best_u, m_best_g, m_best_r, m_best_i, m_best_z, m_best_y, m_best_j, m_best_h, m_best_ks",
     "contraints": []
+  },
+  "HSCv3": {
+    "url": "https://mast.stsci.edu/vo-tap/api/v0.1/hsc/",
+    "table": "dbo.DetailedCatalog",
+    "columns": "SourceID, MatchID, MatchRA as ra, MatchDec as dec, Filter, MagAuto, MagAper2, Flags",
+    "contraints": [],
+    "ra_dec": ["MatchRA", "MatchDec"]
+  },
+  "J-PLUS-DR3": {
+    "url": "https://archive.cefca.es/catalogues/vo/tap/jplus-dr3",
+    "table": "jplus.MagABDualObj obj, jplus.PhotoZLephare lephare",
+    "columns": "Obj.alpha_j2000, Obj.delta_j2000, Obj.mag_auto, Obj.mag_err_auto, Obj.class_star, Obj.flags, Obj.mask_flags, lephare.*",
+    "contraints": [
+        "obj.TILE_ID = lephare.TILE_ID",
+        "obj.NUMBER = lephare.NUMBER",
+        " AND obj.mag_auto[jplus::rSDSS] < 20.0"
+    ],
+    "ra_dec": ["Obj.alpha_j2000", "Obj.delta_j2000"]
   }
-
 }

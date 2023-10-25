@@ -12,12 +12,17 @@ class OGLELookup(BasicLookup):
     CATALOGS = {'OGLE': {}}
 
     XPATH = "//table[@border='1']"
-    URL = "http://ogledb.astrouw.edu.pl/~ogle/photdb/query.php"
+    URL = "http://ogledb.astrouw.edu.pl/~ogle/OCVS/query.php"
     REQUEST_PARAMS = {'qtype': 'bvi', 'first': 1}
 
     def _prepare_request_data(self, catalog, ra, dec, radius):
         ra_r = radius / (3600. * np.cos(np.deg2rad(dec)))
-        return {'db_target': 'bulge',
+        return {'db_target': 'all',
+                'val_targetSMC': 'on',
+                'val_targetLMC': 'on',
+                'val_targetBLG': 'on',
+                'val_targetGD': 'on',
+                'val_targetGAL': 'on',
                 'sort': 'field',
                 'disp_ra': 'on',
                 'use_ra': 'on',
@@ -42,7 +47,7 @@ class OGLELookup(BasicLookup):
         to correct the URL there.
         """
         for element in table.xpath('//a'):
-            element.attrib['href'] = 'http://ogledb.astrouw.edu.pl/~ogle/photdb/' + \
+            element.attrib['href'] = 'http://ogledb.astrouw.edu.pl/~ogle/OCVS/' + \
                                      element.attrib['href']
         return table
 

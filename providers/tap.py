@@ -9,7 +9,7 @@ from providers.basic import BasicLookup
 from lxml import html
 from lxml.etree import tostring
 from astroquery.utils.tap.core import TapPlus
-
+from requests.exceptions import HTTPError
 
 class TAPLookup(BasicLookup):
     CATALOGS = {}
@@ -25,12 +25,17 @@ class TAPLookup(BasicLookup):
 
     def load_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
-        tap = TapPlus(param['url'])
+        tap = TapPlus(param['url'], default_protocol_is_https=param['url'].startswith('https'))
         sql = self._prepare_sql(catalog, ra, dec, radius)
-        print(catalog, sql)
         if sql is None:
             raise Exception('Prepare SQL not implemented')
-        job = tap.launch_job(sql)
+        try:
+            job = tap.launch_job(sql)
+        except HTTPError as ex:
+            print(catalog, sql)
+            print(param)
+            raise ex
+
         result = job.get_data()
         result = self._update_table(result, catalog, ra, dec, radius)
         if result is None:
@@ -41,6 +46,7 @@ class TAPLookup(BasicLookup):
             return {'status': 204, 'html': 'No data'}
         base = self._build_basic_answer(catalog)
         table = html.fromstring(' '.join(result.pformat(html=True,
+                                                        max_lines=-1,
                                                         max_width=-1)[:-1]))
         table.attrib['border'] = '1'
         table.attrib['cellspacing'] = '0'
