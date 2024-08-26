@@ -16,7 +16,7 @@
   "APASS":   "II/336/apass9",
   "IRAS":    "II/338/catalog",
   "GAIA":    "I/355/gaiadr3",
-  "SkyMapper": "II/358/smss",
+  "SkyMapper": "II/379/smssdr4",
   "unWISE": "II/363/unwise",
   "CatWISE2000": "II/365/catwise",
   "HD":      "III/135A/catalog",
@@ -26,5 +26,7 @@
   "LAMOST7":  "V/156/dr7lrs",
   "LAMOST7_MRS":  "V/156/dr7mrs",
   "GLEAM":   "VIII/100/gleamegc",
-  "MIPSGAL": "J/AJ/149/64/catalog"
+  "MIPSGAL": "J/AJ/149/64/catalog",
+  "GALAH DR3": "J/MNRAS/506/150/stars"
+  
 }
