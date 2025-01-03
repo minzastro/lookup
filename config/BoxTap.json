@@ -8,7 +8,7 @@
     ]
   },
   "Bochum": {
-    "url": "http://dc.zah.uni-heidelberg.de/tap",
+    "url": "http://dc.g-vo.org/tap",
     "table": "bgds.phot_all",
     "columns": "band_name, obs_id, ra, dec, mean_mag, amp, nobs",
     "constraints": []
@@ -39,7 +39,7 @@
     "contraints": [
         "obj.TILE_ID = lephare.TILE_ID",
         "obj.NUMBER = lephare.NUMBER",
-        " AND obj.mag_auto[jplus::rSDSS] < 20.0"
+        "obj.mag_auto[jplus::rSDSS] < 20.0"
     ],
     "ra_dec": ["Obj.alpha_j2000", "Obj.delta_j2000"]
   }
