@@ -7,6 +7,13 @@
       "Nplates > 0"
     ]
   },
+  "APPLAUSE (AIP) DR4": {
+    "url": "https://www.plate-archive.org/tap",
+    "table": "applause_dr4.source_calib",
+    "columns": "source_id, scan_id, plate_id, ra_icrs, dec_icrs, natmag, natmag_error, bpmag, rpmag",
+    "constraints": [],
+    "ra_dec": ["ra_icrs", "dec_icrs"]
+  },
   "Bochum": {
     "url": "http://dc.g-vo.org/tap",
     "table": "bgds.phot_all",
