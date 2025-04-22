@@ -25,7 +25,7 @@ class TAPLookup(BasicLookup):
 
     def load_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
-        tap = TapPlus(param['url'], default_protocol_is_https=param['url'].startswith('https'))
+        tap = TapPlus(url=param['url'], default_protocol_is_https=param['url'].startswith('https'))
         sql = self._prepare_sql(catalog, ra, dec, radius)
         if sql is None:
             raise Exception('Prepare SQL not implemented')
