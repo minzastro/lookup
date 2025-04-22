@@ -7,8 +7,15 @@
       "Nplates > 0"
     ]
   },
+  "APPLAUSE (AIP) DR4": {
+    "url": "https://www.plate-archive.org/tap",
+    "table": "applause_dr4.source_calib",
+    "columns": "source_id, scan_id, plate_id, ra_icrs, dec_icrs, natmag, natmag_error, bpmag, rpmag",
+    "constraints": [],
+    "ra_dec": ["ra_icrs", "dec_icrs"]
+  },
   "Bochum": {
-    "url": "http://dc.zah.uni-heidelberg.de/tap",
+    "url": "http://dc.g-vo.org/tap",
     "table": "bgds.phot_all",
     "columns": "band_name, obs_id, ra, dec, mean_mag, amp, nobs",
     "constraints": []
@@ -39,7 +46,7 @@
     "contraints": [
         "obj.TILE_ID = lephare.TILE_ID",
         "obj.NUMBER = lephare.NUMBER",
-        " AND obj.mag_auto[jplus::rSDSS] < 20.0"
+        "obj.mag_auto[jplus::rSDSS] < 20.0"
     ],
     "ra_dec": ["Obj.alpha_j2000", "Obj.delta_j2000"]
   }

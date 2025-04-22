@@ -9,8 +9,13 @@
     "where": ["obs_collection != 'TESS'"]
   },
   "APPLAUSE_DR3": {
-    "url": "https://dc.zah.uni-heidelberg.de/tap",
+    "url": "https://dc.g-vo.org/tap",
     "columns": "obs_collection, obs_id, obs_title, target_name, target_class, t_exptime, facility_name, instrument_name, emulsion, filter, preview",
     "table": "applause.main"
+  },
+  "DASCH": {
+    "url": "http://dc.g-vo.org/tap",
+    "columns": "obs_collection, obs_id, obs_title, target_name, target_class, t_exptime, facility_name, instrument_name. s_resolution",
+    "table": "dasch.narrow_plates"
   }
 }
