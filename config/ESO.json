@@ -24,30 +24,10 @@
       160
     ],
     "fields_total": 160,
-    "id": 147,
+    "id": 266,
     "constraints": {
       "11": "=0"
     }
-  },
-  "KIDS": {
-    "fields": [
-      1,
-      2,
-      5,
-      6,
-      10,
-      134,
-      135,
-      136,
-      137,
-      126,
-      127,
-      128,
-      129
-    ],
-    "fields_total": 155,
-    "id": 112,
-    "constraints": {}
   },
   "VPHAS": {
     "fields": [
