@@ -15,7 +15,7 @@ for provider in ['ObsLog',
                  'Vizier', 'VSA', 'WSA',
                  'GCPD',
                  'DASCH', 'OGLE',
-                 'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
+                 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
                  #'DECam',
                  'CasJobs'
                  ]:
