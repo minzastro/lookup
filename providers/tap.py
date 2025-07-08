@@ -22,10 +22,15 @@ class TAPLookup(BasicLookup):
 
     def _update_table(self, table, catalog, ra, dec, radius):
         return table
+    
+    def _get_tap(self, param):
+        return TapPlus(url=param['url'], 
+                       default_protocol_is_https=param['url'].startswith('https'))
+
 
     def load_data(self, catalog, ra, dec, radius):
         param = self.CATALOGS[catalog]
-        tap = TapPlus(url=param['url'], default_protocol_is_https=param['url'].startswith('https'))
+        tap = self._get_tap(param)
         sql = self._prepare_sql(catalog, ra, dec, radius)
         if sql is None:
             raise Exception('Prepare SQL not implemented')

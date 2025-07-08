@@ -12,7 +12,7 @@ lookups = []
 
 for provider in ['ObsLog',
                  'Q3CTap', 'BoxTap',
-                 'Vizier', 'VSA', 'WSA',
+                 'VizierVo', 'VSA', 'WSA',
                  'GCPD',
                  'DASCH', 'OGLE',
                  'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
