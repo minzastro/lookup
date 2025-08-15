@@ -8,7 +8,7 @@ Created on Tue Jun  7 17:41:20 2016
 from lxml import html
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 from providers.login import LoginLookup
-from lib.html_addons import replace_empty, add_distance_column
+from lib.html_addons import add_distance_column
 from astropy.coordinates import SkyCoord
 
 class ESOLookup(LoginLookup):

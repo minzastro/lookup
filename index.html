@@ -7,10 +7,6 @@
 <link rel="stylesheet" href="static/styles.css">
 
 <script>
-    document.getElementById('skyLookupForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Form submitted!');
-});
 
 // Add keypress event listener to enforce input rules
 const inputs = document.querySelectorAll('input');
@@ -29,17 +25,17 @@ inputs.forEach(input => {
     <h1>Sky lookup service</h1>
     <div class="form-container">
         <form id="skyLookupForm" action='/lookup/search'>
-            <label for="coord">Coordinates:</label>
-            <input type="text" id="coord" name="coordinates" pattern="[0-9\s,\.]*" required>
+            <label for="Coordinates">Coordinates:</label>
+            <input type="text" id="coord" name="coordinates" pattern="[0-9\s,\.\-]*" required/>
             
             <label for="radius">Radius:</label>
-            <input type="text" id="radius" name="radius" pattern="[0-9\s,\.]*" required value="10">
+            <input type="text" id="radius" name="radius" pattern="[0-9\s,\.]*" required value="10"/>
             
-            <button type="submit">Submit</button>
+            <button type="submit" value="search">Submit</button>
         </form>
     </div>
 </div>
 
-<script src="script.js"></script>
+<!--<script src="script.js"></script>-->
 </body>
 </html>

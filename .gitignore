@@ -66,3 +66,5 @@ providers/noao_login.json
 providers/casjobs.mast.auth
 providers/casjobs.sdss.auth
 providers/hsc-release.pwd
+/nbproject/
+/.ropeproject/

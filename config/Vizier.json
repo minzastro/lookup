@@ -5,6 +5,7 @@
   "NOMAD":   "I/297/out",
   "URAT1":   "I/329/urat1",
   "APOP":    "I/331/apop",
+  "GAIA":    "I/355/gaiadr3",
   "2MASS":   "II/246/out",
   "ASAS-I":  "II/264/asas-i",
   "ASAS3":   "II/264/asas3",
@@ -16,7 +17,7 @@
   "APASS":   "II/336/apass9",
   "IRAS":    "II/338/catalog",
   "KIDS":    "II/383/kids_dr5",
-  "GAIA":    "I/355/gaiadr3",
+  "EUCLID":  "II/388/mer1",
   "SkyMapper": "II/379/smssdr4",
   "unWISE": "II/363/unwise",
   "CatWISE2000": "II/365/catwise",
@@ -28,6 +29,7 @@
   "LAMOST7":  "V/156/dr7lrs",
   "LAMOST7_MRS":  "V/156/dr7mrs",
   "GLEAM":   "VIII/100/gleamegc",
+  "BOCHUM": "J/AN/336/590/varsum",
   "MIPSGAL": "J/AJ/149/64/catalog",
   "GALAH DR3": "J/MNRAS/506/150/stars"
   

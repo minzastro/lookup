@@ -36,6 +36,7 @@ def parse_arbitraty_coordinates(text):
     Convert text with coordinates into ra/dec in degrees.
     Supports decimal and HMS/DMS inputs.
     """
+    print("Coordinates=" + text)
     if '+' in text:
         ra, dec = text.split('+')
     elif '-' in text:
@@ -58,6 +59,7 @@ class LookupServer(object):
         self.mocs = pickle.load(open('all_mocs.pickle', 'rb'))
         self.catalogs = {}
         self.config = Config('lookup.conf')
+        self.jinja = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
         for look in lookups:
             look.force_config_reload()
             for catalog in look.CATALOGS:
@@ -87,61 +89,7 @@ class LookupServer(object):
         self.ra, self.dec = parse_arbitraty_coordinates(coordinates)
         self.radius = float(radius)
 
-        main_template = jinja2.Template("""
-        <html>
-        <head>
-        <link rel="stylesheet" type="text/css" href="static/lookup.css">
-        <script type="text/javascript" charset="utf8" src="static/jquery.js"></script>
-        <script type="text/javascript" language="javascript" class="init">
-           function askCatalog(name){
-               var params = {catalog: name};
-               jQuery.post('get_info', params,
-               function(response, textStatus, jX){
-                   if (jX.status == 200){
-                       document.getElementById("header-"+name).innerHTML = " click to collapse";
-                       document.getElementById("result-"+name).innerHTML = response;
-                       document.getElementById("over-"+name).toggleAttribute('open');
-                   }
-                   else if (jX.status == 205){
-                       document.getElementById("over-"+name).remove();
-                       document.getElementById("notcovered").innerHTML += " " + name;
-                   }
-                   else if (jX.status == 204){
-                       document.getElementById("over-"+name).remove();
-                       document.getElementById("nodata").innerHTML += " " + name;
-                   }
-                   else if (jX.status == 203){
-                       document.getElementById("over-"+name).remove();
-                       document.getElementById("errors").innerHTML += " " + name;
-                   }
-               }
-               );
-           }
-           jQuery(window).on('load', function(){
-               var catalogs = {{catalogs}};
-               var counter = catalogs.length;
-               for (var i = 0; i < catalogs.length; i++) {
-                  askCatalog(catalogs[i]);
-               }
-            });
-        </script>
-        </head>
-        <body>
-        <h1>Search around: {{ra}} {{dec}}</h1>
-        {% for catalog in catalogs %}
-           <details id="over-{{catalog}}">
-             <summary>
-               <h2 class="head"> {{ catalog }}</h2> <div  class="head" id="header-{{catalog}}">...pending</div>
-            </summary>
-            <div id="result-{{catalog}}">{{ catalog }}</div>
-           </details>
-        {% endfor %}
-        <div id="notcovered">Not covered by:</div>
-        <div id="nodata">No data from:</div>
-        <div id="errors">Error from:</div>
-        </body>
-        </html>
-        """)
+        main_template = self.jinja.get_template('search.html')
         return main_template.render(catalogs=list(self.catalogs.keys()),
                                     ra=self.ra,
                                     dec=self.dec)

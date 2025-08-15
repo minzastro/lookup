@@ -22,7 +22,7 @@ class VizierVoLookup(BasicLookup):
         catname = self.CATALOGS[catalog]
         url = f'https://vizier.cds.unistra.fr/viz-bin/conesearch/{catname}?'
         search = conesearch.conesearch((ra, dec), radius / 3600., 
-                                       catalog_db=url, return_astropy_table=True, verb=3)
+                                       catalog_db=url, return_astropy_table=True, verb=0)
         base = self._build_basic_answer(catalog)
         if search is None:
             # No data

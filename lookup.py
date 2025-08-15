@@ -17,7 +17,8 @@ import traceback
 lookups = []
 
 for provider in ['ObsLog','Q3CTap', 'BoxTap', 'Vizier', 'VSA', 'WSA', #'SSA', 
-                 'GCPD', 'DASCH', 'OGLE', 
+                 'GCPD', #'DASCH', 
+                 'OGLE', 
                  'JPlus', 'ESO', 'ChinaVO', 'STSCI', 'CRTS2',
                  #'DECam', 'NOAO',
                  'CasJobs'
