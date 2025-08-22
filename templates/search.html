@@ -1,0 +1,71 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="static/lookup.css">
+<script type="text/javascript" charset="utf8" src="static/jquery.js"></script>
+<script type="text/javascript" language="javascript" class="init">
+
+    function toggleCollapse(header) {
+        const body = header.nextElementSibling;
+        const arrow = header.querySelector('.arrow');
+
+        if (body.classList.contains('show')) {
+            body.classList.remove('show');
+            arrow.textContent = '\u{25BC}'; // Arrow Up
+        } else {
+            body.classList.add('show');
+            arrow.textContent = '\u{25B4}'; // Arrow Down
+        }
+    }
+    function askCatalog(name){
+        var params = {catalog: name};
+        jQuery.post('get_info', params,
+        function(response, textStatus, jX){
+            if (jX.status == 200){
+                //document.getElementById("header-"+name).textContent = "";
+                document.getElementById("result-"+name).innerHTML = response;
+                
+                //document.getElementById("over-"+name).toggleAttribute('open');
+            }
+            else if (jX.status == 205){
+                document.getElementById("over-"+name).remove();
+                document.getElementById("notcovered").innerHTML += " " + name;
+            }
+            else if (jX.status == 204){
+                document.getElementById("over-"+name).remove();
+                document.getElementById("nodata").innerHTML += " " + name;
+            }
+            else if (jX.status == 203){
+                document.getElementById("over-"+name).remove();
+                document.getElementById("errors").innerHTML += " " + name;
+            }
+        }
+        );
+    }
+    jQuery(window).on('load', function(){
+        var catalogs = {{catalogs}};
+        var counter = catalogs.length;
+        for (var i = 0; i < catalogs.length; i++) {
+            askCatalog(catalogs[i]);
+        }
+    });
+</script>
+</head>
+<body>
+<h1>Search around: {{ra}} {{dec}}</h1>
+{% for catalog in catalogs %}
+    <!--<details id="over-{{catalog}}">-->
+    <div class="collapsible-container" id="over-{{catalog}}">
+        <!--<summary>-->
+                <h2 class="head"> {{ catalog }}</h2> 
+                <div class="collapsible-header" onclick="toggleCollapse(this)" id="header-{{catalog}}"><span class="arrow">&#9660;</span> 
+                ...pending</div>
+        <!--</summary>-->
+        <div id="result-{{catalog}}" class="collapsible-body">{{ catalog }}</div>
+    <!--</details>-->
+    </div>    
+{% endfor %}
+<div id="notcovered">Not covered by:</div>
+<div id="nodata">No data from:</div>
+<div id="errors">Error from:</div>
+</body>
+</html>

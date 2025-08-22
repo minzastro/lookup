@@ -33,3 +33,41 @@ summary {
   padding: 0px;
   margin: 0px;
 }
+
+
+
+.collapsible-container {
+    /*width: 300px;
+    margin: 50px auto;*/
+}
+
+.collapsible-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.collapsible-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: #ddd;
+    padding: 10px;
+    visibility: hidden;
+}
+
+.collapsible-body.show {
+    visibility: visible;
+    max-height: 5000px; /* Set a large value to ensure full visibility */
+}
