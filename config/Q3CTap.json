@@ -31,7 +31,7 @@
   },
   "Euclid_Q1": {
     "url": "https://datalab.noirlab.edu/tap",
-    "columns": "object_id, right_ascension, declination, flux_u_ext_megacam_1fwhm_aper, flux_g_ext_decam_1fwhm_aper, flux_r_ext_megacam_1fwhm_aper, flux_i_ext_megacam_1fwhm_aper, flux_j_1fwhm_aper, flux_h_1fwhm_aper"
+    "columns": "object_id, right_ascension, declination, flux_u_ext_megacam_1fwhm_aper, flux_g_ext_decam_1fwhm_aper, flux_r_ext_megacam_1fwhm_aper, flux_i_ext_megacam_1fwhm_aper, flux_j_1fwhm_aper, flux_h_1fwhm_aper",
     "table": "euclid_q1.object",
     "constraints": []
   }
