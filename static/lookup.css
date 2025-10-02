@@ -43,7 +43,6 @@ summary {
 
 .collapsible-header {
     background-color: #f1f1f1;
-    padding: 10px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -59,11 +58,12 @@ summary {
 }
 
 .collapsible-body {
+    padding: 10px;
     max-height: 0;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     transition: max-height 0.3s ease;
     background-color: #ddd;
-    padding: 10px;
     visibility: hidden;
 }
 

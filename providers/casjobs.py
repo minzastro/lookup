@@ -23,16 +23,16 @@ class CasJobsLookup(BasicLookup):
     def _str_to_html(self, output):
         ihead = True
         rows = 0
-        result = ['<TABLE>']
+        result = ['<TABLE border="1" cellspacing="0">']
         for row in csv.reader(output.split('\n')):
             if len(row) == 0:
                 continue
             if row[0].strip().startswith('#'):
                 continue
             if ihead:
-                result.append('<TR>')
+                result.append('<THEAD><TR>')
                 result.extend(['<TH>%s</TH>' % item for item in row])
-                result.append('</TR>')
+                result.append('</TR></THEAD>')
                 ihead = False
             else:
                 rows = rows + 1

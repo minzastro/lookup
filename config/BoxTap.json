@@ -18,7 +18,8 @@
     "url": "http://dc.g-vo.org/tap",
     "table": "bgds.phot_all",
     "columns": "band_name, obs_id, ra, dec, mean_mag, amp, nobs",
-    "constraints": []
+    "constraints": [],
+    "distance": "true"
   },
   "HELP_Spectra": {
     "url": "https://herschel-vos.phys.sussex.ac.uk/__system__/tap/run/tap",

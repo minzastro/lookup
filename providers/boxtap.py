@@ -43,11 +43,15 @@ class BoxTapLookup(TAPLookup):
         if 'constraints' in param and len(param['constraints']) > 0:
             constraints = "AND " + 'AND'.join(param['constraints'])
         if 'ra_dec' in param.keys():
-            pos_constraint = f"""{param['ra_dec'][0]} between {ra - r1} and {ra + r1}
-          and {param['ra_dec'][1]} between {dec - r} and {dec + r}"""
+            ra_name, dec_name = param['ra_dec']
         else:
-            pos_constraint = f"""ra between {ra - r1} and {ra + r1}
-          and dec between {dec - r} and {dec + r}"""
+            ra_name, dec_name = 'ra', 'dec'
+
+        if 'distance' in param and param['distance'] == 'true':
+            pos_constraint = f'DISTANCE({ra_name}, {dec_name}, {ra}, {dec}) < {r}'
+        else:    
+            pos_constraint = f"""{ra_name} between {ra - r1} and {ra + r1}
+              and {dec_name} between {dec - r} and {dec + r}"""
         sql = f"""SELECT {param['columns']}
         FROM {param['table']}
         where {pos_constraint}

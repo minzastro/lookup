@@ -24,13 +24,13 @@
   "S-PLUS DR4": "II/380/splusdr4",
   "HD":      "III/135A/catalog",
   "RAVE_DR6":"III/283/ravedr6",
-  "APOGEE DR16":"III/284/allstars",
+  "APOGEE DR17":"III/286/catalog",
   "SDSS":    "V/139/sdss9",
   "LAMOST7":  "V/156/dr7lrs",
   "LAMOST7_MRS":  "V/156/dr7mrs",
   "GLEAM":   "VIII/100/gleamegc",
   "BOCHUM": "J/AN/336/590/varsum",
   "MIPSGAL": "J/AJ/149/64/catalog",
-  "GALAH DR3": "J/MNRAS/506/150/stars"
-  
+  "GALAH DR3": "J/MNRAS/506/150/stars",
+  "ATLAS-REFCAT2": "J/ApJ/867/105/refcat2"
 }

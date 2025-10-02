@@ -21,8 +21,12 @@ class Q3CTapLookup(TAPLookup):
         constraints = ''
         if 'constraints' in param and len(param['constraints']) > 0:
             constraints = "AND " + 'AND'.join(param['constraints'])
-        sql = f"""SELECT {param['columns']}, Q3C_DIST(ra, dec, {ra}, {dec})*3600.0 as distance
-        FROM {param['table']} where 't' = Q3C_RADIAL_QUERY(ra, dec, {ra}, {dec}, {r})
+        if 'coordinates' in param and len(param['coordinates']) > 0:
+            coords = ', '.join(param['coordinates'])
+        else:
+            coords = 'ra, dec'
+        sql = f"""SELECT {param['columns']}, Q3C_DIST({coords}, {ra}, {dec})*3600.0 as distance
+        FROM {param['table']} where 't' = Q3C_RADIAL_QUERY({coords}, {ra}, {dec}, {r})
         {constraints}
         order by distance
         """

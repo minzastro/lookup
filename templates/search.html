@@ -21,7 +21,7 @@
         jQuery.post('get_info', params,
         function(response, textStatus, jX){
             if (jX.status == 200){
-                //document.getElementById("header-"+name).textContent = "";
+                document.getElementById("pending-"+name).remove();
                 document.getElementById("result-"+name).innerHTML = response;
                 
                 //document.getElementById("over-"+name).toggleAttribute('open');
@@ -58,7 +58,7 @@
         <!--<summary>-->
                 <h2 class="head"> {{ catalog }}</h2> 
                 <div class="collapsible-header" onclick="toggleCollapse(this)" id="header-{{catalog}}"><span class="arrow">&#9660;</span> 
-                ...pending</div>
+                <p id="pending-{{catalog}}">...pending</p></div>
         <!--</summary>-->
         <div id="result-{{catalog}}" class="collapsible-body">{{ catalog }}</div>
     <!--</details>-->
